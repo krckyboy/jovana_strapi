@@ -7,9 +7,14 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "server": "npm start",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.0.1"
+  },
   "dependencies": {
     "strapi": "3.0.0-beta.17.8",
     "strapi-admin": "3.0.0-beta.17.8",
