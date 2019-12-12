@@ -11,6 +11,14 @@ const Blog = lazy(() => import('../pages/Blog'))
 const BlogPost = lazy(() => import('../pages/BlogPost'))
 
 // # Add content loader for nice feel.
+// # Fix hamburger navbar appearing / disappearing
+// # Create a login page
+// # Create a 'new product page'
+// # Create a 'new blog page'
+// # Create am 'edit blog page'
+// # Create a 'delete blog modal confirmation'
+// # Create a 'delete product modal confirmation'
+// # Show if user is logged
 function App() {
 	return (
 		<Router

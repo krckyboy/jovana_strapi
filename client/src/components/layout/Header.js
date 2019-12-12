@@ -130,7 +130,7 @@ const Nav = styled.nav`
 		props.isOpen ? 'translateX(0)' : 'translateX(100%)'};
 	transition: transform 0.2s;
 	padding: 2.4rem;
-	@media ${device.mobileL} and (orientation: landscape) {
+	@media only screen and ${device.mobileL} and (orientation: landscape) {
 		display: none;
 	}
 	@media ${device.tablet} {
@@ -159,6 +159,9 @@ const HamburgerMenu = styled.img`
 	display: block;
 	align-self: center;
 	height: 3.2rem;
+	@media only screen and ${device.mobileL} and (orientation: landscape) {
+		display: none;
+	}
 	@media ${device.tablet} {
 		display: none;
 	}
@@ -193,13 +196,13 @@ const NavDesktop = styled.div`
 			border-bottom: 2px solid ${colors.primary};
 		}
 	}
-	@media ${device.tablet} {
+	@media only screen and ${device.tablet} {
 		font-size: 1.3rem;
 		display: flex;
 		align-items: center;
 		justify-self: center;
 	}
-	@media ${device.laptop} {
+	@media only screen and ${device.laptop} {
 		font-size: 1.6rem;
 	}
 `
