@@ -56,7 +56,6 @@ export default function Blog() {
 	useEffect(() => {
 		;(async () => {
 			const blogs = await fetchBlogs()
-			console.log('Blogs:', blogs)
 			setBlogs(blogs)
 		})()
 	}, [])

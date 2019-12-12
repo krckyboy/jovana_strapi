@@ -4,7 +4,6 @@ import FirstSection from '../components/Home/FirstSection'
 import MojiRadovi from '../components/Home/MojiRadovi'
 import Blog from '../components/Home/Blog'
 
-
 export default function Home() {
 	return (
 		<Layout>

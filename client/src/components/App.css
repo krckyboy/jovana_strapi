@@ -94,7 +94,7 @@ button {
 body {
   background-color: #f7f7f7;
   font-family: "Work Sans", sans-serif;
-  color: #333333;
+  color: #575757;
   max-width: 100%;
 }
 
@@ -103,7 +103,7 @@ a, button {
 }
 
 .primaryColor {
-  color: #f2994a;
+  color: #A6CB76;
 }
 
 .h1 {
@@ -139,7 +139,7 @@ a, button {
 
 .carousel .control-dots .dot {
   box-shadow: none !important;
-  background: #f2994a !important;
+  background: #A6CB76 !important;
 }
 
 .gallery__item--1 {
