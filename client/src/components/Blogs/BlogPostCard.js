@@ -24,7 +24,7 @@ const BlogCardTitle = styled.h3`
 const BlogCardParagraph = styled.p`
 	font-size: 1.3rem;
 	letter-spacing: 1px;
-	line-height: 130%;
+	line-height: 135%;
 	font-weight: 500;
 `
 

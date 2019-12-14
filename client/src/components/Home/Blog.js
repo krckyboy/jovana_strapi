@@ -55,7 +55,7 @@ export default function BlogComp() {
 				<Blogs />
 			</BlogsContainer>
 			<Link
-				to="/radovi"
+				to="/blog"
 				style={{
 					display: 'inline-block',
 					marginTop: '6.4rem',

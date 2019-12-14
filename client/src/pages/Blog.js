@@ -27,7 +27,7 @@ const BlogPostContainer = styled.div`
 
 function Blogs({ blogs }) {
 	if (!blogs) {
-		return <span>Loading...</span>
+		return <span>{''}</span>
 	} else {
 		return blogs.map((b, i) => (
 			<StyledBlogPostCard
