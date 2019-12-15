@@ -98,7 +98,7 @@ const Header = styled.header`
 	position: fixed;
 	top: 0;
 	z-index: 2;
-	@media ${device.mobileL} {
+	@media only screen and ${device.mobileL} {
 		padding: 0 2.4rem;
 	}
 `
@@ -179,12 +179,11 @@ const SocialIconContainerMobile = styled.div`
 
 const NavDesktop = styled.div`
 	display: none;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-
+	font-size: 1.3rem;
+	align-items: center;
+	justify-self: center;
 	font-weight: 500;
-	transform: translate(-50%, -50%);
+
 	& > a {
 		margin-left: 2.4rem;
 		margin-right: 2.4rem;
@@ -196,14 +195,38 @@ const NavDesktop = styled.div`
 			border-bottom: 2px solid ${colors.primary};
 		}
 	}
-	@media only screen and ${device.tablet} {
-		font-size: 1.3rem;
+	@media only screen and ${device.mobileL} and (orientation: landscape) {
 		display: flex;
-		align-items: center;
-		justify-self: center;
+		font-size: 1rem;
+
+		position: initial;
+		left: initial;
+		top: initial;
+		transform: initial;
+		& > a {
+			margin-left: 0.8rem;
+			margin-right: 0.8rem;
+		}
+	}
+	@media only screen and ${device.tablet} {
+		display: flex;
+		font-size: 1.4rem;
+
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		& > a {
+			margin-left: 2.2rem;
+			margin-right: 2.2rem;
+		}
 	}
 	@media only screen and ${device.laptop} {
 		font-size: 1.6rem;
+		& > a {
+			margin-left: 2.4rem;
+			margin-right: 2.4rem;
+		}
 	}
 `
 

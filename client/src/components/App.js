@@ -11,13 +11,12 @@ const Blog = lazy(() => import('../pages/Blog'))
 const BlogPost = lazy(() => import('../pages/BlogPost'))
 
 // # Add content loader for nice feel.
-// # Fix hamburger navbar appearing / disappearing
 // # (designed) Create a login page
 // # (designed) Create a 'new product page'
 // # (designed) Create a 'new blog page'
 // # (designed) Create am 'edit blog page'
-// # Create a 'delete blog modal confirmation'
-// # Create a 'delete product modal confirmation'
+// # (designed) Create a 'delete blog modal confirmation'
+// # (designed) Create a 'delete product modal confirmation'
 // # Show if user is logged
 function App() {
 	return (
