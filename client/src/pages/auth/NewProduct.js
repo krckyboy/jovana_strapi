@@ -47,7 +47,7 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
-export default function NewBlogPost() {
+export default function NewProduct() {
 	function handleSubmit(e) {
 		e.preventDefault()
 	}
@@ -58,7 +58,7 @@ export default function NewBlogPost() {
 					'content sectionSpacingFullTop containerCommon horizontalPadding'
 				}
 			>
-				<h1 className="h1">Dodavanje posta</h1>
+				<h1 className="h1">Dodavanje rada</h1>
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label htmlFor={'title'}>Naslov</Label>

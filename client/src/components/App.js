@@ -52,7 +52,7 @@ function App() {
 						/>
 						<Route
 							exact
-							path={process.env.PUBLIC_URL + '/blog/new'}
+							path={process.env.PUBLIC_URL + '/blog/novi'}
 							component={NewBlogPost}
 						/>
 						<Route

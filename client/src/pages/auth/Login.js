@@ -4,6 +4,8 @@ import logo from '../../assets/images/svg/logo.svg'
 import styled from 'styled-components/macro'
 import colors from '../../styles/colors'
 import Button from '../../components/Button'
+import useInputState from '../../hooks/useInputState'
+import login from '../../api/login'
 
 const Form = styled.form`
 	display: flex;
@@ -47,13 +49,22 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
-// @todo
-//  Write a custom hook for input fields
-// Hit the API for logging in with the correct fields
 export default function Login() {
-	function handleSubmit(e) {
+	const { value: username, handleChange: handleChangeLogin } = useInputState(
+		''
+	)
+
+	const {
+		value: password,
+		handleChange: handleChangePassword,
+	} = useInputState('')
+
+	async function handleSubmit(e) {
 		e.preventDefault()
+		const token = await login({ identifier: username, password })
+		console.log(token)
 	}
+
 	return (
 		<Layout>
 			<Main
@@ -65,11 +76,20 @@ export default function Login() {
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label htmlFor={'username'}>Username</Label>
-						<Input id={'username'} />
+						<Input
+							id={'username'}
+							onChange={handleChangeLogin}
+							value={username}
+						/>
 					</FormGroup>
 					<FormGroup>
 						<Label htmlFor={'password'}>Password</Label>
-						<Input id={'password'} type={'password'} />
+						<Input
+							id={'password'}
+							type={'password'}
+							value={password}
+							onChange={handleChangePassword}
+						/>
 					</FormGroup>
 					<Button style={loginButtonStyle} type={'primary'}>
 						Ulogujte se
