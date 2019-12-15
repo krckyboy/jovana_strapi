@@ -7,7 +7,7 @@ import Blog from '../components/Home/Blog'
 export default function Home() {
 	return (
 		<Layout>
-			<main>
+			<main className={'content'}>
 				<FirstSection />
 				<MojiRadovi />
 				<div className="horizontalPadding">

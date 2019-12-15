@@ -15,7 +15,7 @@ const Img = styled.img`
 export default function AboutMe() {
 	return (
 		<Layout>
-			<main>
+			<main className={'content'}>
 				<div className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">O meni</h1>
 					<SubHeading>

@@ -15,7 +15,7 @@ const Img = styled.img`
 export default function Blog() {
 	return (
 		<Layout>
-			<main>
+			<main className={'content'}>
 				<div className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<GoBack />
 					<Img src="/images/jovana.jpg" alt="Jovana" />

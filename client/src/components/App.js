@@ -9,6 +9,7 @@ const AboutMe = lazy(() => import('../pages/AboutMe'))
 const MyWork = lazy(() => import('../pages/MyWork'))
 const Blog = lazy(() => import('../pages/Blog'))
 const BlogPost = lazy(() => import('../pages/BlogPost'))
+const Login = lazy(() => import('../pages/Login'))
 
 // # Add content loader for nice feel.
 // # (designed) Create a login page
@@ -25,7 +26,7 @@ function App() {
 			basename={process.env.PUBLIC_URL}
 		>
 			<Suspense fallback={Loading()}>
-				<div className="content">
+				<>
 					<ScrollToTop />
 					<Switch>
 						<Route
@@ -53,8 +54,13 @@ function App() {
 							path={process.env.PUBLIC_URL + '/blog/:id'}
 							component={BlogPost}
 						/>
+						<Route
+							exact
+							path={process.env.PUBLIC_URL + '/login'}
+							component={Login}
+						/>
 					</Switch>
-				</div>
+				</>
 			</Suspense>
 		</Router>
 	)

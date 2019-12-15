@@ -61,7 +61,7 @@ export default function Blog() {
 	}, [])
 	return (
 		<Layout>
-			<main>
+			<main className={'content'}>
 				<Section className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">Blog</h1>
 					<BlogPostContainer>

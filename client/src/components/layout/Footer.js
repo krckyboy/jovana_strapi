@@ -4,13 +4,13 @@ import colors from '../../styles/colors'
 
 const Footer = styled.footer`
 	margin-top: auto;
-	background-color: ${colors.backgroundColorLayout};
 	padding: 3.2rem 2.4rem;
 	text-align: center;
 	letter-spacing: 1px;
 	font-size: 1.3rem;
-	flex-shrink: 0;
 	background-color: #fff;
+
+	flex-shrink: 0;
 `
 
 const TopText = styled.p`

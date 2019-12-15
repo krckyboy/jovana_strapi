@@ -25,6 +25,12 @@ html,
   height: 100%;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .containerCommon {
   max-width: 100%;
   margin: 0 auto;
