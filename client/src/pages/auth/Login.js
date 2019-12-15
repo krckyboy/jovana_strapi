@@ -49,6 +49,10 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
+// @todo
+// Handle errors visually
+// Redirect if success
+// Show if logged in inside navbar
 export default function Login() {
 	const { value: username, handleChange: handleChangeLogin } = useInputState(
 		''
