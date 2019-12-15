@@ -21,20 +21,20 @@ const images = [
 
 const ImgContainer = styled.div`
 	margin-bottom: 7.2rem;
-	@media ${device.tablet} {
+	@media only screen and ${device.tablet} {
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
 		grid-template-rows: repeat(11, 9vw);
 		grid-gap: 15px;
 	}
-	@media ${device.laptopM} {
+	@media only screen and ${device.laptopM} {
 		grid-template-rows: repeat(11, 5vw);
 	}
 `
 
 const Figure = styled.figure`
 	margin-bottom: 3.2rem;
-	@media ${device.tablet} {
+	@media only screen and ${device.tablet} {
 		margin-bottom: 0;
 	}
 `
@@ -46,7 +46,7 @@ const Img = styled.img`
 		margin-bottom: 0;
 	}
 
-	@media ${device.tablet} {
+	@media only screen and ${device.tablet} {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -58,7 +58,7 @@ const Container = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 	padding: 0 2.4rem;
-	@media ${device.tablet} {
+	@media only screen and ${device.tablet} {
 		max-width: 120rem;
 	}
 `
@@ -66,7 +66,7 @@ const Container = styled.div`
 export default function MyWork() {
 	return (
 		<Layout>
-			<main>
+			<main className={'content'}>
 				<Container className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">Radovi</h1>
 					<ImgContainer>
