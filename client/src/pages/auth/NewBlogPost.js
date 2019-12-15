@@ -1,9 +1,8 @@
 import React from 'react'
-import Layout from '../components/layout/Layout'
-import logo from '../assets/images/svg/logo.svg'
+import Layout from '../../components/layout/Layout'
 import styled from 'styled-components/macro'
-import colors from '../styles/colors'
-import Button from '../components/Button'
+import colors from '../../styles/colors'
+import Button from '../../components/Button'
 
 const Form = styled.form`
 	display: flex;
@@ -33,7 +32,7 @@ const Input = styled.input`
 `
 
 const FormGroup = styled.div`
-	&:first-child {
+	&:not(:last-of-type) {
 		margin-bottom: 2.4rem;
 	}
 `
@@ -48,9 +47,6 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
-// @todo
-//  Write a custom hook for input fields
-// Hit the API for logging in with the correct fields
 export default function Login() {
 	function handleSubmit(e) {
 		e.preventDefault()
@@ -62,18 +58,21 @@ export default function Login() {
 					'content sectionSpacingFullTop containerCommon horizontalPadding'
 				}
 			>
-				<img src={logo} alt={'Logo'} />
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
-						<Label htmlFor={'username'}>Username</Label>
-						<Input id={'username'} />
+						<Label htmlFor={'title'}>Naslov</Label>
+						<Input id={'title'} />
 					</FormGroup>
 					<FormGroup>
-						<Label htmlFor={'password'}>Password</Label>
-						<Input id={'password'} type={'password'} />
+						<Label htmlFor={'text'}>Tekst</Label>
+						<Input id="text" />
+					</FormGroup>
+					<FormGroup>
+						<Label htmlFor={'image'}>Slika</Label>
+						<Input id="image" type={'file'} />
 					</FormGroup>
 					<Button style={loginButtonStyle} type={'primary'}>
-						Ulogujte se
+						Kreiraj post
 					</Button>
 				</Form>
 			</Main>

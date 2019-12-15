@@ -9,12 +9,13 @@ const AboutMe = lazy(() => import('../pages/AboutMe'))
 const MyWork = lazy(() => import('../pages/MyWork'))
 const Blog = lazy(() => import('../pages/Blog'))
 const BlogPost = lazy(() => import('../pages/BlogPost'))
-const Login = lazy(() => import('../pages/Login'))
+const Login = lazy(() => import('../pages/auth/Login'))
+const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
 
 // # Add content loader for nice feel.
-// # (designed) Create a login page
+// # (coded) Create a login page
 // # (designed) Create a 'new product page'
-// # (designed) Create a 'new blog page'
+// # (coded) Create a 'new blog page'
 // # (designed) Create am 'edit blog page'
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
@@ -48,6 +49,11 @@ function App() {
 							exact
 							path={process.env.PUBLIC_URL + '/blog'}
 							component={Blog}
+						/>
+						<Route
+							exact
+							path={process.env.PUBLIC_URL + '/blog/new'}
+							component={NewBlogPost}
 						/>
 						<Route
 							exact
