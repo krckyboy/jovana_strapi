@@ -10,5 +10,6 @@ export default async function({ identifier, password }) {
 		return res.data
 	} catch (e) {
 		console.error(e)
+		return { error: e }
 	}
 }

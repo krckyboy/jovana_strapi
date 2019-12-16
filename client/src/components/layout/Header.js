@@ -1,75 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { NavLink, Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import logo from '../../assets/images/svg/logo.svg'
 import hamburger from '../../assets/images/svg/hamburger.svg'
 import x from '../../assets/images/svg/x.svg'
 import { device } from '../../styles/breakPoints'
 import colors from '../../styles/colors'
-import Fb from '../../assets/images/svg/facebook.svg'
-import Instagram from '../../assets/images/svg/instagram.svg'
 
-function NavLinksComp() {
-	return (
-		<>
-			{' '}
-			<NavLink
-				style={navLinkStyle}
-				activeClassName="primaryColor"
-				to={process.env.PUBLIC_URL + '/'}
-				exact
-			>
-				Početna
-			</NavLink>
-			<NavLink
-				style={navLinkStyle}
-				activeClassName="primaryColor"
-				to={process.env.PUBLIC_URL + '/o_meni'}
-				exact
-			>
-				O meni
-			</NavLink>
-			<NavLink
-				style={navLinkStyle}
-				activeClassName="primaryColor"
-				to={process.env.PUBLIC_URL + '/radovi'}
-				exact
-			>
-				Radovi
-			</NavLink>
-			<NavLink
-				style={navLinkStyle}
-				activeClassName="primaryColor"
-				to={process.env.PUBLIC_URL + '/blog'}
-				exact
-			>
-				Blog
-			</NavLink>
-		</>
-	)
-}
+import NavLinksComp from './Header/NavLinksComp'
+import SocialIcons from './Header/SocialIcons'
 
-function SocialIcons() {
-	return (
-		<>
-			<a
-				href="https://www.facebook.com/jovana.jevtic.94"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<img src={Fb} alt="Facebook" />
-			</a>
-			<a
-				href="https://www.instagram.com/kreativni_snovi_jovana_jevtic"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<img src={Instagram} alt="Instagram" />
-			</a>
-		</>
-	)
-}
-
+// @todo
+// Consume context to check if user is logged and display it
 const SocialIconsContainerDesktop = styled.div`
 	align-items: center;
 	margin-left: auto;
@@ -143,17 +85,20 @@ const NavItemsContainer = styled.div`
 	flex-direction: column;
 	padding: 1.5rem;
 	font-size: 1.6rem;
+	white-space: nowrap;
 	letter-spacing: 1px;
 	font-weight: 500;
 	margin-top: 30%;
 	position: relative;
 	text-align: center;
-`
 
-const navLinkStyle = {
-	marginTop: '1.5rem',
-	marginBottom: '1.5rem',
-}
+	& button {
+		font-size: 1.6rem;
+		background-color: transparent;
+		border: none;
+		font-weight: 500;
+	}
+`
 
 const HamburgerMenu = styled.img`
 	display: block;
@@ -183,9 +128,14 @@ const NavDesktop = styled.div`
 	align-items: center;
 	justify-self: center;
 	font-weight: 500;
+	white-space: nowrap;
 
-	& > a {
+	& > a,
+	& > button {
 		margin-left: 2.4rem;
+		background-color: transparent;
+		border: none;
+		font-weight: 500;
 		margin-right: 2.4rem;
 		transition: opacity 1s;
 		border-bottom: 2px solid transparent;
@@ -197,13 +147,13 @@ const NavDesktop = styled.div`
 	}
 	@media only screen and ${device.mobileL} and (orientation: landscape) {
 		display: flex;
-		font-size: 1rem;
-
 		position: initial;
 		left: initial;
 		top: initial;
 		transform: initial;
-		& > a {
+		& > a,
+		& > button {
+			font-size: 1.4rem;
 			margin-left: 0.8rem;
 			margin-right: 0.8rem;
 		}
@@ -223,7 +173,8 @@ const NavDesktop = styled.div`
 	}
 	@media only screen and ${device.laptop} {
 		font-size: 1.6rem;
-		& > a {
+		& > a,
+		& > button {
 			margin-left: 2.4rem;
 			margin-right: 2.4rem;
 		}

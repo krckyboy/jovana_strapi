@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Layout from '../../components/layout/Layout'
 import logo from '../../assets/images/svg/logo.svg'
 import styled from 'styled-components/macro'
@@ -6,6 +6,8 @@ import colors from '../../styles/colors'
 import Button from '../../components/Button'
 import useInputState from '../../hooks/useInputState'
 import login from '../../api/login'
+import { AuthenticationContext } from '../../contexts/authenticationContext'
+import { Redirect } from 'react-router-dom'
 
 const Form = styled.form`
 	display: flex;
@@ -49,11 +51,9 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
-// @todo
-// Handle errors visually
-// Redirect if success
-// Show if logged in inside navbar
+// @todo (0) Show message if success or failed via message context (new dispatch)
 export default function Login() {
+	const { authentication: auth, dispatch } = useContext(AuthenticationContext)
 	const { value: username, handleChange: handleChangeLogin } = useInputState(
 		''
 	)
@@ -65,8 +65,24 @@ export default function Login() {
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-		const token = await login({ identifier: username, password })
-		console.log(token)
+		const data = await login({ identifier: username, password })
+		if (data.error) {
+			dispatch({
+				type: 'LOGIN_FAILURE',
+			})
+			// @todo (1) Display message for invalid credentials
+		} else {
+			// Set token and user inside context state
+			// @todo (2) Display message for successful login
+			dispatch({
+				type: 'LOGIN_SUCCESS',
+				payload: data,
+			})
+		}
+	}
+
+	if (auth.token) {
+		return <Redirect to={'/'} />
 	}
 
 	return (
