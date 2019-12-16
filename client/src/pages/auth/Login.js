@@ -98,7 +98,7 @@ export default function Login() {
 		}
 	}
 
-	if (auth.token) {
+	if (auth && auth.token) {
 		return <Redirect to={'/'} />
 	}
 
@@ -117,6 +117,7 @@ export default function Login() {
 							id={'username'}
 							onChange={handleChangeLogin}
 							value={username}
+							required
 						/>
 					</FormGroup>
 					<FormGroup>
@@ -126,6 +127,7 @@ export default function Login() {
 							type={'password'}
 							value={password}
 							onChange={handleChangePassword}
+							required
 						/>
 					</FormGroup>
 					<Button style={loginButtonStyle} type={'primary'}>

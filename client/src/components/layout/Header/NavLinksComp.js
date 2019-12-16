@@ -60,7 +60,7 @@ export default function NavLinksComp() {
 			>
 				Blog
 			</NavLink>
-			{auth.token && (
+			{auth && auth.token && (
 				<button style={navLinkStyle} onClick={handleOnClickLogout}>
 					Izloguj se
 				</button>
