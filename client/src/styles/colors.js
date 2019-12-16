@@ -8,4 +8,6 @@ export default {
 	common: '#575757',
 	backgroundColor: '#f7f7f7',
 	backgroundColorLayout: '#fff',
+	success: '#6cc070',
+	failure: '#ff6633',
 }

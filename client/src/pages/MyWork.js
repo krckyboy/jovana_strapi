@@ -63,6 +63,7 @@ const Container = styled.div`
 	}
 `
 
+// todo -- Take into account dynamic content. You won't always have 12 images. Dynamic grid?
 export default function MyWork() {
 	return (
 		<Layout>

@@ -11,6 +11,7 @@ const BlogsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	@media only screen and ${device.laptopM} {
 		flex-direction: row;
 		align-items: center;

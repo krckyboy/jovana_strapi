@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { AuthenticationContext } from '../../../contexts/authenticationContext'
+import { MessagesContext } from '../../../contexts/messagesContext'
+import dispatchWithTimeoutDispatch from '../../../contexts/utils/dispatchWithTimeoutDispatch'
 
 const navLinkStyle = {
 	marginTop: '1.5rem',
@@ -9,7 +11,20 @@ const navLinkStyle = {
 }
 
 export default function NavLinksComp() {
-	const { dispatch, authentication: auth } = useContext(AuthenticationContext)
+	const { dispatch: dispatchAuth, authentication: auth } = useContext(
+		AuthenticationContext
+	)
+	const { dispatch: dispatchMsg, message } = useContext(MessagesContext)
+
+	function handleOnClickLogout() {
+		dispatchAuth({ type: 'LOGOUT' })
+		dispatchWithTimeoutDispatch(
+			dispatchMsg,
+			{ type: 'LOGOUT' },
+			{ type: 'CLEAR_MESSAGE' },
+			message
+		)
+	}
 	return (
 		<>
 			{' '}
@@ -46,10 +61,7 @@ export default function NavLinksComp() {
 				Blog
 			</NavLink>
 			{auth.token && (
-				<button
-					style={navLinkStyle}
-					onClick={() => dispatch({ type: 'LOGOUT' })}
-				>
+				<button style={navLinkStyle} onClick={handleOnClickLogout}>
 					Izloguj se
 				</button>
 			)}

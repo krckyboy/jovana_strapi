@@ -5,6 +5,7 @@ import ScrollToTop from './ScrollToTop'
 import Loading from './Loading'
 import '../styles/App.css'
 import AuthenticationProvider from '../contexts/authenticationContext'
+import MessagesProvider from '../contexts/messagesContext'
 
 const Home = lazy(() => import('../pages/Home'))
 const AboutMe = lazy(() => import('../pages/AboutMe'))
@@ -25,53 +26,55 @@ const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
 function App() {
 	return (
 		<AuthenticationProvider>
-			<Router
-				onUpdate={() => window.scrollTo(0, 0)}
-				basename={process.env.PUBLIC_URL}
-			>
-				<Suspense fallback={Loading()}>
-					<>
-						<ScrollToTop />
-						<Switch>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/'}
-								component={Home}
-							/>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/o_meni'}
-								component={AboutMe}
-							/>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/radovi'}
-								component={MyWork}
-							/>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/blog'}
-								component={Blog}
-							/>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/blog/novi'}
-								component={NewBlogPost}
-							/>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/blog/:id'}
-								component={BlogPost}
-							/>
-							<Route
-								exact
-								path={process.env.PUBLIC_URL + '/login'}
-								component={Login}
-							/>
-						</Switch>
-					</>
-				</Suspense>
-			</Router>
+			<MessagesProvider>
+				<Router
+					onUpdate={() => window.scrollTo(0, 0)}
+					basename={process.env.PUBLIC_URL}
+				>
+					<Suspense fallback={Loading()}>
+						<>
+							<ScrollToTop />
+							<Switch>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/'}
+									component={Home}
+								/>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/o_meni'}
+									component={AboutMe}
+								/>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/radovi'}
+									component={MyWork}
+								/>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/blog'}
+									component={Blog}
+								/>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/blog/novi'}
+									component={NewBlogPost}
+								/>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/blog/:id'}
+									component={BlogPost}
+								/>
+								<Route
+									exact
+									path={process.env.PUBLIC_URL + '/login'}
+									component={Login}
+								/>
+							</Switch>
+						</>
+					</Suspense>
+				</Router>
+			</MessagesProvider>
 		</AuthenticationProvider>
 	)
 }

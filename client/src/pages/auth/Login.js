@@ -7,6 +7,8 @@ import Button from '../../components/Button'
 import useInputState from '../../hooks/useInputState'
 import login from '../../api/login'
 import { AuthenticationContext } from '../../contexts/authenticationContext'
+import { MessagesContext } from '../../contexts/messagesContext'
+import dispatchWithTimeoutDispatch from '../../contexts/utils/dispatchWithTimeoutDispatch'
 import { Redirect } from 'react-router-dom'
 
 const Form = styled.form`
@@ -51,9 +53,12 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
-// @todo (0) Show message if success or failed via message context (new dispatch)
 export default function Login() {
-	const { authentication: auth, dispatch } = useContext(AuthenticationContext)
+	const { authentication: auth, dispatch: dispatchAuth } = useContext(
+		AuthenticationContext
+	)
+	const { dispatch: dispatchMessage, message } = useContext(MessagesContext)
+
 	const { value: username, handleChange: handleChangeLogin } = useInputState(
 		''
 	)
@@ -67,17 +72,29 @@ export default function Login() {
 		e.preventDefault()
 		const data = await login({ identifier: username, password })
 		if (data.error) {
-			dispatch({
+			dispatchAuth({
 				type: 'LOGIN_FAILURE',
 			})
-			// @todo (1) Display message for invalid credentials
+
+			dispatchWithTimeoutDispatch(
+				dispatchMessage,
+				{ type: 'LOGIN_FAILURE' },
+				{ type: 'CLEAR_MESSAGE' },
+				message
+			)
 		} else {
 			// Set token and user inside context state
-			// @todo (2) Display message for successful login
-			dispatch({
+			dispatchAuth({
 				type: 'LOGIN_SUCCESS',
 				payload: data,
 			})
+
+			dispatchWithTimeoutDispatch(
+				dispatchMessage,
+				{ type: 'LOGIN_SUCCESS' },
+				{ type: 'CLEAR_MESSAGE' },
+				message
+			)
 		}
 	}
 
