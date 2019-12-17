@@ -10,6 +10,7 @@ import { AuthenticationContext } from '../../contexts/authenticationContext'
 import { MessagesContext } from '../../contexts/messagesContext'
 import dispatchWithTimeoutDispatch from '../../contexts/utils/dispatchWithTimeoutDispatch'
 import { Redirect } from 'react-router-dom'
+import setAuthToken from '../../utils/setAuthToken'
 
 const Form = styled.form`
 	display: flex;
@@ -82,6 +83,9 @@ export default function Login() {
 				{ type: 'CLEAR_MESSAGE' },
 				message
 			)
+
+			// Clear token from axios headers
+			setAuthToken()
 		} else {
 			// Set token and user inside context state
 			dispatchAuth({
@@ -95,6 +99,9 @@ export default function Login() {
 				{ type: 'CLEAR_MESSAGE' },
 				message
 			)
+
+			// Set token inside axios headers
+			setAuthToken(data.jwt)
 		}
 	}
 

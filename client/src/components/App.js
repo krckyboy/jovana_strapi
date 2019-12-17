@@ -6,6 +6,7 @@ import Loading from './Loading'
 import '../styles/App.css'
 import AuthenticationProvider from '../contexts/authenticationContext'
 import MessagesProvider from '../contexts/messagesContext'
+import setAuthToken from '../utils/setAuthToken'
 
 const Home = lazy(() => import('../pages/Home'))
 const AboutMe = lazy(() => import('../pages/AboutMe'))
@@ -15,8 +16,12 @@ const BlogPost = lazy(() => import('../pages/BlogPost'))
 const Login = lazy(() => import('../pages/auth/Login'))
 const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
 
+// Set auth token if in local storage
+if (localStorage.token) {
+	setAuthToken(localStorage.token)
+}
+
 // # Add content loader for nice feel.
-// # (coded) Create a login page
 // # (designed) Create a 'new product page'
 // # (coded) Create a 'new blog page'
 // # (designed) Create am 'edit blog page'

@@ -1,14 +1,33 @@
 import { NavLink } from 'react-router-dom'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthenticationContext } from '../../../contexts/authenticationContext'
 import { MessagesContext } from '../../../contexts/messagesContext'
 import dispatchWithTimeoutDispatch from '../../../contexts/utils/dispatchWithTimeoutDispatch'
+import styled from 'styled-components/macro'
 
 const navLinkStyle = {
 	marginTop: '1.5rem',
 	marginBottom: '1.5rem',
 	cursor: 'pointer',
 }
+
+const ButtonLogOut = styled.button`
+	position: relative;
+
+	& span {
+		opacity: 0;
+	}
+
+	&:hover span {
+		opacity: 1;
+	}
+`
+
+const Username = styled.span`
+	position: absolute;
+	bottom: -150%;
+	left: 0;
+`
 
 export default function NavLinksComp() {
 	const { dispatch: dispatchAuth, authentication: auth } = useContext(
@@ -25,6 +44,7 @@ export default function NavLinksComp() {
 			message
 		)
 	}
+
 	return (
 		<>
 			{' '}
@@ -60,10 +80,14 @@ export default function NavLinksComp() {
 			>
 				Blog
 			</NavLink>
-			{auth && auth.token && (
-				<button style={navLinkStyle} onClick={handleOnClickLogout}>
+			{auth && auth.token && auth.user && (
+				<ButtonLogOut
+					style={navLinkStyle}
+					onClick={handleOnClickLogout}
+				>
 					Izloguj se
-				</button>
+					<Username>({auth.user.username})</Username>
+				</ButtonLogOut>
 			)}
 		</>
 	)
