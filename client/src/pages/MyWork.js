@@ -1,23 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
 import PaginationControls from '../components/PaginationControls.js'
 import { device } from '../styles/breakPoints'
-
-const images = [
-	{ src: '/images/prsten.jpg', alt: 'Prsten', id: 1 },
-	{ src: '/images/mindjuse.jpg', alt: 'Mindjuse', id: 2 },
-	{ src: '/images/ogrlica.jpg', alt: 'Ogrlica', id: 3 },
-	{ src: '/images/prsten.jpg', alt: 'Prsten', id: 4 },
-	{ src: '/images/mindjuse.jpg', alt: 'Mindjuse', id: 5 },
-	{ src: '/images/ogrlica.jpg', alt: 'Ogrlica', id: 6 },
-	{ src: '/images/prsten.jpg', alt: 'Prsten', id: 7 },
-	{ src: '/images/mindjuse.jpg', alt: 'Mindjuse', id: 8 },
-	{ src: '/images/ogrlica.jpg', alt: 'Ogrlica', id: 9 },
-	{ src: '/images/prsten.jpg', alt: 'Prsten', id: 10 },
-	{ src: '/images/mindjuse.jpg', alt: 'Mindjuse', id: 11 },
-	{ src: '/images/ogrlica.jpg', alt: 'Ogrlica', id: 12 },
-]
+import fetchProducts from '../api/fetchProducts'
+import queryString from 'query-string'
 
 const ImgContainer = styled.div`
 	margin-bottom: 7.2rem;
@@ -25,7 +12,8 @@ const ImgContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	transition: 0.2s opacity;
 	@media only screen and ${device.laptopM} {
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -41,6 +29,7 @@ const Img = styled.img`
 	margin-bottom: 2.4rem;
 	&:last-of-type {
 		margin-bottom: 0;
+		margin-right: 0;
 	}
 
 	@media only screen and ${device.tablet} {
@@ -68,29 +57,72 @@ const Section = styled.section`
 	margin-left: auto;
 	margin-right: auto;
 	padding: 0 2.4rem;
+	//width: 100%;
 	@media only screen and ${device.tablet} {
 		max-width: 120rem;
 	}
+	@media only screen and ${device.laptopM} {
+		width: 100%;
+	}
 `
 
-export default function MyWork() {
+function Products({ products }) {
+	if (!products) {
+		return <span>{''}</span>
+	} else {
+		return products.map((product, index, arr) => (
+			<Img key={product.id} src={product.image.url} alt={product.title} />
+		))
+	}
+}
+
+export default function MyWork({ location, history }) {
+	// Actual products
+	const [products, setProducts] = useState(null)
+
+	// Fetching the page number from query string and then putting
+	// that value into state for re-rendering purpose.
+	const { page: parsedPage } = queryString.parse(location.search)
+	const [page, setPage] = useState(parsedPage || 1)
+
+	// Getting the final page number to be passed to PaginationControls.
+	const [finalPage, setFinalPage] = useState(1)
+
+	const [loading, setLoading] = useState(false)
+
+	useEffect(() => {
+		;(async () => {
+			setLoading(true)
+			const { products, pagesCount } = await fetchProducts(page)
+			setProducts(products)
+			setFinalPage(pagesCount)
+			setLoading(false)
+			window.scrollTo(0, 0)
+		})()
+	}, [page])
+
+	function updatePage(page) {
+		history.push({
+			pathname: '/radovi',
+			search: `?page=${page}`,
+		})
+
+		setPage(page)
+	}
+
 	return (
 		<Layout>
 			<main className={'content'}>
 				<Section className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">Radovi</h1>
-					<ImgContainer>
-						{images.map((image, index) => {
-							return (
-								<Img
-									key={index * Math.random()}
-									src={image.src}
-									alt={image.alt}
-								/>
-							)
-						})}
+					<ImgContainer className={loading && 'lowOpacity'}>
+						<Products products={products} />
 					</ImgContainer>
-					<PaginationControls />
+					<PaginationControls
+						updatePage={updatePage}
+						page={page}
+						finalPage={finalPage}
+					/>
 				</Section>
 			</main>
 		</Layout>

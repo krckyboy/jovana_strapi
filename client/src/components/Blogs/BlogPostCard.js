@@ -37,6 +37,10 @@ const Img = styled.img`
 const Container = styled.div`
 	margin-bottom: 2.4rem;
 
+	&:last-of-type {
+		margin-right: 0;
+	}
+
 	@media only screen and ${device.tablet} {
 		max-width: 35rem;
 	}

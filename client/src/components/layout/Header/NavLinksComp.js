@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { AuthenticationContext } from '../../../contexts/authenticationContext'
 import { MessagesContext } from '../../../contexts/messagesContext'
 import dispatchWithTimeoutDispatch from '../../../contexts/utils/dispatchWithTimeoutDispatch'

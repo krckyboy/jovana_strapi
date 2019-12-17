@@ -232,6 +232,15 @@ a, button {
   grid-row-end: 12;
 }
 
+.lowOpacity {
+  opacity: 30%;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  opacity: 40%;
+}
+
 @media only screen and (min-width: calc(424px + 24px)) {
   .horizontalPadding {
     padding: 0;

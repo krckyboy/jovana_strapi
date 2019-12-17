@@ -25,14 +25,14 @@ function Loader() {
 	)
 }
 
-const FullWhite = styled.div`
+const Empty = styled.div`
 	width: 100vw;
 	height: 100vh;
 	background-color: ${colors.backgroundColor};
 `
 
 const Loading = () => {
-	return <FullWhite />
+	return <Empty />
 }
 
 export default Loading
