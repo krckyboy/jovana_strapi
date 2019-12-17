@@ -21,39 +21,49 @@ const images = [
 
 const ImgContainer = styled.div`
 	margin-bottom: 7.2rem;
-	@media only screen and ${device.tablet} {
-		display: grid;
-		grid-template-columns: repeat(8, 1fr);
-		grid-template-rows: repeat(11, 9vw);
-		grid-gap: 15px;
-	}
+	justify-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	@media only screen and ${device.laptopM} {
-		grid-template-rows: repeat(11, 5vw);
-	}
-`
-
-const Figure = styled.figure`
-	margin-bottom: 3.2rem;
-	@media only screen and ${device.tablet} {
-		margin-bottom: 0;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
 	}
 `
 
 const Img = styled.img`
 	max-width: 100%;
+	width: 100%;
 	object-fit: cover;
+	max-height: 25rem;
+	margin-bottom: 2.4rem;
 	&:last-of-type {
 		margin-bottom: 0;
 	}
 
 	@media only screen and ${device.tablet} {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		max-width: 35rem;
+	}
+
+	@media only screen and ${device.laptopM} {
+		max-width: 31.5%;
+		margin-left: 1.2rem;
+		margin-right: 1.2rem;
+		&:nth-child(3n + 1) {
+			margin-left: 0;
+		}
+		&:nth-child(3n + 3) {
+			margin-right: 0;
+		}
+		&:last-of-type {
+			margin-bottom: 2.4rem;
+		}
 	}
 `
 
-const Container = styled.div`
+const Section = styled.section`
 	max-width: 42.4rem;
 	margin-left: auto;
 	margin-right: auto;
@@ -63,28 +73,25 @@ const Container = styled.div`
 	}
 `
 
-// todo -- Take into account dynamic content. You won't always have 12 images. Dynamic grid?
 export default function MyWork() {
 	return (
 		<Layout>
 			<main className={'content'}>
-				<Container className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
+				<Section className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">Radovi</h1>
 					<ImgContainer>
 						{images.map((image, index) => {
 							return (
-								<Figure
+								<Img
 									key={index * Math.random()}
-									className={`gallery__item gallery__item--${index +
-										1}`}
-								>
-									<Img src={image.src} alt={image.alt} />
-								</Figure>
+									src={image.src}
+									alt={image.alt}
+								/>
 							)
 						})}
 					</ImgContainer>
 					<PaginationControls />
-				</Container>
+				</Section>
 			</main>
 		</Layout>
 	)
