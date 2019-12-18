@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import BlogPostCard from '../components/Blogs/BlogPostCard'
 import PaginationControls from '../components/PaginationControls'
@@ -6,6 +6,8 @@ import styled from 'styled-components/macro'
 import { device } from '../styles/breakPoints'
 import fetchBlogs from '../api/fetchBlogs'
 import queryString from 'query-string'
+import apiWrapper from '../utils/apiWrapper'
+import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const StyledBlogPostCard = styled(BlogPostCard)`
 	@media only screen and ${device.laptopL} {
@@ -57,6 +59,9 @@ const Section = styled.section`
 
 export default function Blog({ location, history }) {
 	const [blogs, setBlogs] = useState(null)
+	const { dispatch: authDispatch } = useContext(AuthenticationContext)
+
+	const [reload, setReload] = useState(false)
 
 	// Fetching the page number from query string and then putting
 	// that value into state for re-rendering purpose.
@@ -71,13 +76,21 @@ export default function Blog({ location, history }) {
 	useEffect(() => {
 		;(async () => {
 			setLoading(true)
-			const { blogs, pagesCount } = await fetchBlogs(page)
-			setBlogs(blogs)
-			setFinalPage(pagesCount)
-			setLoading(false)
-			window.scrollTo(0, 0)
+			const data = await apiWrapper(
+				() => fetchBlogs(page),
+				authDispatch,
+				() => setReload(!reload)
+			)
+
+			if (!data.error) {
+				const { blogs, pagesCount } = data
+				setBlogs(blogs)
+				setFinalPage(pagesCount)
+				setLoading(false)
+				window.scrollTo(0, 0)
+			}
 		})()
-	}, [page])
+	}, [page, reload])
 
 	function updatePage(page) {
 		history.push({

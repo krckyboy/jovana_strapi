@@ -19,7 +19,13 @@ const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
 
 // Set auth token if in local storage
 if (localStorage.authentication) {
-	setAuthToken(JSON.parse(localStorage.getItem('authentication')).token)
+	const parsedAuthentication = JSON.parse(
+		localStorage.getItem('authentication')
+	)
+
+	if (parsedAuthentication !== null && parsedAuthentication.token) {
+		setAuthToken(parsedAuthentication.token)
+	}
 }
 
 // # Add content loader for nice feel.
@@ -28,7 +34,9 @@ if (localStorage.authentication) {
 // # (designed) Create am 'edit blog page'
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
-//@todo Add 404 page
+//@ todo Add 404 page
+// @todo Each API call needs to be checked for errors and if status code is 401, dispatch clear token
+// Perhaps add a HOC that will import context, api wrapper, implement reload state and pass it to the child component
 function App() {
 	return (
 		<AuthenticationProvider>
@@ -41,7 +49,7 @@ function App() {
 						<>
 							<ScrollToTop />
 							<Switch>
-								<PrivateRoute
+								<Route
 									exact
 									path={process.env.PUBLIC_URL + '/'}
 									component={Home}

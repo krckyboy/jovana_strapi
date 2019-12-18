@@ -92,6 +92,7 @@ export default function Blog({ match }) {
 	useEffect(() => {
 		;(async () => {
 			const { blogPost } = await fetchSingleBlog(blogId)
+			// @todo Check if response is error and then clear login
 			setBlog(blogPost)
 		})()
 	}, [blogId])

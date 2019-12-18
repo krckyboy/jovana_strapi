@@ -193,7 +193,7 @@ function HeaderComp({ location }) {
 	}, [isOpen])
 
 	useEffect(() => {
-		if (auth.token) setAuthToken(auth.token)
+		if (auth && auth.token) setAuthToken(auth.token)
 	})
 
 	function handleClick() {

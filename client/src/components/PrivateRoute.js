@@ -5,10 +5,8 @@ import checkIfAuthenticated from '../api/checkIfAuthenticated'
 import { MessagesContext } from '../contexts/messagesContext'
 import dispatchWithTimeoutDispatch from '../contexts/utils/dispatchWithTimeoutDispatch'
 import setAuthToken from '../utils/setAuthToken'
-import axios from 'axios'
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-	console.log('From private route', axios.defaults.headers.common)
 	const { authentication: auth, dispatch: dispatchAuth } = useContext(
 		AuthenticationContext
 	)
@@ -41,6 +39,22 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 				} else {
 					setIsAuthenticated(true)
 				}
+			} else {
+				setIsAuthenticated(false)
+
+				dispatchAuth({
+					type: 'AUTHENTICATION_FAILED',
+				})
+
+				// Clean token
+				setAuthToken()
+
+				// Display message to user that login is required
+				dispatchWithTimeoutDispatch(
+					dispatchMessage,
+					{ type: 'LOGIN_REQUIRED' },
+					{ type: 'CLEAR_MESSAGE' }
+				)
 			}
 		})()
 	}, [isAuthenticated, dispatchMessage])

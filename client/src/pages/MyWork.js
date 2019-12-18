@@ -93,6 +93,7 @@ export default function MyWork({ location, history }) {
 		;(async () => {
 			setLoading(true)
 			const { products, pagesCount } = await fetchProducts(page)
+			// @todo Check if response is error and then clear login
 			setProducts(products)
 			setFinalPage(pagesCount)
 			setLoading(false)

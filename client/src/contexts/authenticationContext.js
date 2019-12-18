@@ -9,7 +9,7 @@ export const AuthenticationContext = createContext()
 export default function AuthenticationProvider(props) {
 	const [authentication, dispatch] = useLocalStorageReducer(
 		'authentication',
-		null,
+		{ user: null, token: null },
 		authenticationReducer
 	)
 	return (
