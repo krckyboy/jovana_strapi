@@ -9,7 +9,7 @@ export default async function(page = 1) {
 	}
 
 	const products = await axios.get(
-		`/products?_start=${start}&_limit=${limit}`
+		`/products?_sort=created_at:desc&_start=${start}&_limit=${limit}`
 	)
 
 	const productsCount = await axios.get('/products/count')

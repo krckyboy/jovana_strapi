@@ -20,6 +20,7 @@ const BodyContainer = styled.div`
 		font-size: 1.5rem;
 		letter-spacing: 1px;
 		margin: 2.4rem 0;
+		line-height: 135%;
 		& + p {
 			margin-top: 0;
 		}
@@ -60,7 +61,7 @@ const BodyContainer = styled.div`
 		}
 	}
 `
-
+// @todo Add options when logged
 function BlogPost({ blogData }) {
 	const {
 		body,
@@ -77,8 +78,6 @@ function BlogPost({ blogData }) {
 	return (
 		<>
 			<GoBack />
-			{/*/ If logged in, show options icon */}
-			{/*Inside of those options, add link to edit / delete*/}
 			<Img src={imageUrl} alt={title} />
 			<h1 className="h1">{title}</h1>
 			<BodyContainer dangerouslySetInnerHTML={getMarkDownText()} />
@@ -90,14 +89,12 @@ export default function Blog({ match }) {
 	const [blog, setBlog] = useState(null)
 	const blogId = match.params.id
 
-	function markdownToReact(text) {}
-
 	useEffect(() => {
 		;(async () => {
 			const { blogPost } = await fetchSingleBlog(blogId)
 			setBlog(blogPost)
 		})()
-	}, [])
+	}, [blogId])
 	return (
 		<Layout>
 			<main className={'content'}>
