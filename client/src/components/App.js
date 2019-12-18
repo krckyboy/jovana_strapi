@@ -18,8 +18,8 @@ const Login = lazy(() => import('../pages/auth/Login'))
 const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
 
 // Set auth token if in local storage
-if (localStorage.token) {
-	setAuthToken(localStorage.token)
+if (localStorage.authentication) {
+	setAuthToken(JSON.parse(localStorage.getItem('authentication')).token)
 }
 
 // # Add content loader for nice feel.
@@ -41,7 +41,7 @@ function App() {
 						<>
 							<ScrollToTop />
 							<Switch>
-								<Route
+								<PrivateRoute
 									exact
 									path={process.env.PUBLIC_URL + '/'}
 									component={Home}
