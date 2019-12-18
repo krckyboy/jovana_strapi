@@ -11,6 +11,8 @@ import { MessagesContext } from '../../contexts/messagesContext'
 import Message from '../Message'
 import NavLinksComp from './Header/NavLinksComp'
 import SocialIcons from './Header/SocialIcons'
+import { AuthenticationContext } from '../../contexts/authenticationContext'
+import setAuthToken from '../../utils/setAuthToken'
 
 const SocialIconsContainerDesktop = styled.div`
 	align-items: center;
@@ -184,10 +186,15 @@ const NavDesktop = styled.div`
 function HeaderComp({ location }) {
 	const [isOpen, setisOpen] = useState(false)
 	const { message } = useContext(MessagesContext)
+	const { authentication: auth } = useContext(AuthenticationContext)
 
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : 'initial'
 	}, [isOpen])
+
+	useEffect(() => {
+		if (auth.token) setAuthToken(auth.token)
+	})
 
 	function handleClick() {
 		setisOpen(!isOpen)

@@ -28,6 +28,7 @@ if (localStorage.token) {
 // # (designed) Create am 'edit blog page'
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
+//@todo Add 404 page
 function App() {
 	return (
 		<AuthenticationProvider>

@@ -3,6 +3,7 @@ import Layout from '../../components/layout/Layout'
 import styled from 'styled-components/macro'
 import colors from '../../styles/colors'
 import Button from '../../components/Button'
+import axios from 'axios'
 
 const Form = styled.form`
 	display: flex;
@@ -60,6 +61,7 @@ const loginButtonStyle = {
 }
 
 export default function NewBlogPost() {
+	console.log('From actual NewBlogPost', axios.defaults.headers.common)
 	function handleSubmit(e) {
 		e.preventDefault()
 	}
