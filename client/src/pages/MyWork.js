@@ -57,7 +57,6 @@ const Section = styled.section`
 	margin-left: auto;
 	margin-right: auto;
 	padding: 0 2.4rem;
-	//width: 100%;
 	@media only screen and ${device.tablet} {
 		max-width: 120rem;
 	}

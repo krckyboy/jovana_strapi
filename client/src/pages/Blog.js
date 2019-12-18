@@ -20,6 +20,7 @@ const BlogPostContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
+	transition: 0.2s opacity;
 	@media only screen and ${device.laptopM} {
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -36,8 +37,9 @@ function Blogs({ blogs }) {
 				src={b.image.url}
 				alt={b.alt}
 				title={b.title}
-				body={b.body}
-				key={i * Math.random()}
+				description={b.description}
+				key={b.id}
+				id={b.id}
 			/>
 		))
 	}

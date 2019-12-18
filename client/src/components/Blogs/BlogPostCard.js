@@ -29,7 +29,7 @@ const BlogCardParagraph = styled.p`
 `
 
 const Img = styled.img`
-	max-height: 25rem;
+	height: 25rem;
 	width: 100%;
 	object-fit: cover;
 `
@@ -78,9 +78,9 @@ const BlogReadMoreContainer = styled.div`
 	margin-top: auto;
 `
 
-export default function BlogPostComp({ src, alt, id, body, title }) {
+export default function BlogPostComp({ src, alt, id, description, title }) {
 	function truncateText(text, limit) {
-		if (text.length > limit) {
+		if (text && text.length > limit) {
 			for (let i = limit; i > 0; i--) {
 				if (
 					text.charAt(i) === ' ' &&
@@ -95,16 +95,18 @@ export default function BlogPostComp({ src, alt, id, body, title }) {
 		} else return text
 	}
 
-	const bodyTruncated = truncateText(body, 220)
+	const descriptionTruncated = truncateText(description, 220)
 	const titleTruncated = truncateText(title, 40)
 	return (
 		<Container>
 			<Img src={src} alt={alt} />
 			<BlogBodyContainer>
 				<BlogCardTitle>{titleTruncated}</BlogCardTitle>
-				<BlogCardParagraph>{bodyTruncated}</BlogCardParagraph>
+				<BlogCardParagraph>{descriptionTruncated}</BlogCardParagraph>
 				<BlogReadMoreContainer>
-					<BlogReadMore to="/blog/:id">Pročitaj više</BlogReadMore>
+					<BlogReadMore to={`/blog/${id}`}>
+						Pročitaj više
+					</BlogReadMore>
 				</BlogReadMoreContainer>
 			</BlogBodyContainer>
 		</Container>

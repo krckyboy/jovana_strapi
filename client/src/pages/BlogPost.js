@@ -1,63 +1,108 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
-import SubHeading from '../components/SubHeading'
 import GoBack from '../components/GoBack'
-import P from '../components/P'
+import fetchSingleBlog from '../api/fetchSingleBlog'
+import colors from '../styles/colors'
+import marked from 'marked'
 
 const Img = styled.img`
 	max-width: 100%;
 	margin-bottom: 3.2rem;
-	max-height: 35rem;
+	height: 25rem;
 	width: 100%;
 	object-fit: cover;
 `
-export default function Blog() {
+
+// h2 === SubHeading, the rest of the headings are just fallbacks
+const BodyContainer = styled.div`
+	& p {
+		font-size: 1.5rem;
+		letter-spacing: 1px;
+		margin: 2.4rem 0;
+		& + p {
+			margin-top: 0;
+		}
+
+		& + h2,
+		& + h1,
+		& + h3,
+		& + h4,
+		& + h5 {
+			margin-top: 4.8rem;
+		}
+	}
+	& h2, // h2 is the subheading here
+	& h1,
+	& h3,
+	& h4,
+	& h5,
+	& h6 {
+		font-size: 1.8rem;
+		font-weight: 700;
+		position: relative;
+		color: ${colors.primary};
+		margin-bottom: 3.2rem;
+		padding-left: 8px;
+
+		&:after {
+			position: absolute;
+			content: '';
+			height: 2.9rem;
+			width: 3px;
+			top: -3px;
+			left: 0;
+			background: ${colors.primary};
+		}
+
+		& + p {
+			margin-top: 0;
+		}
+	}
+`
+
+function BlogPost({ blogData }) {
+	const {
+		body,
+		title,
+		id,
+		image: { url: imageUrl },
+	} = blogData
+
+	function getMarkDownText() {
+		const rawMarkup = marked(body, { sanitize: true })
+		return { __html: rawMarkup }
+	}
+
+	return (
+		<>
+			<GoBack />
+			{/*/ If logged in, show options icon */}
+			{/*Inside of those options, add link to edit / delete*/}
+			<Img src={imageUrl} alt={title} />
+			<h1 className="h1">{title}</h1>
+			<BodyContainer dangerouslySetInnerHTML={getMarkDownText()} />
+		</>
+	)
+}
+
+export default function Blog({ match }) {
+	const [blog, setBlog] = useState(null)
+	const blogId = match.params.id
+
+	function markdownToReact(text) {}
+
+	useEffect(() => {
+		;(async () => {
+			const { blogPost } = await fetchSingleBlog(blogId)
+			setBlog(blogPost)
+		})()
+	}, [])
 	return (
 		<Layout>
 			<main className={'content'}>
 				<div className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
-					<GoBack />
-					<Img src="/images/jovana.jpg" alt="Jovana" />
-					<h1 className="h1">Osmeh je zdravlje</h1>
-					<SubHeading>
-						<span>Misli i emocije</span>
-					</SubHeading>
-					<P>
-						Chupa chups jelly-o tootsie roll gingerbread macaroon
-						wafer macaroon. Jelly tootsie roll halvah sweet danish
-						lemon drops bonbon. Chocolate bar cheesecake caramels
-						cookie gummies.
-					</P>
-					<P>
-						Chocolate cake tiramisu dessert powder fruitcake.
-						Chocolate chocolate cake gummies. Sweet icing danish
-						danish brownie oat cake jujubes sweet. Bear claw sweet
-						roll gummi bears danish cake candy canes chupa chups.
-						Chupa chups jelly-o tootsie roll gingerbread macaroon
-						wafer macaroon. Jelly tootsie roll halvah sweet danish
-						lemon drops bonbon. Chocolate bar cheesecake caramels
-						cookie gummies.
-					</P>
-					<SubHeading>
-						<span>Sarma i punjena paprika</span>
-					</SubHeading>
-					<P>
-						Chupa chups jelly-o tootsie roll gingerbread macaroon
-						wafer macaroon. Jelly tootsie roll halvah sweet danish
-						lemon drops bonbon. Chocolate bar cheesecake caramels
-						cookie gummies.
-					</P>
-					<P>
-						Chocolate cake tiramisu dessert powder fruitcake.
-						Chocolate chocolate cake gummies. Sweet icing danish
-						danish brownie oat cake jujubes sweet. Bear claw sweet
-						roll gummi bears danish cake candy canes chupa chups.
-						Chupa chups jelly-o tootsie roll gingerbread macaroon
-						wafer macaroon. Jelly tootsie roll halvah sweet danish
-						lemon drops bonbon. Chocolate bar cheesecake caramels
-						cookie gummies.
-					</P>
+					{blog && <BlogPost blogData={blog} />}
 				</div>
 			</main>
 		</Layout>

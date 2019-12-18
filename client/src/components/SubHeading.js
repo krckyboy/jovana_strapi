@@ -1,3 +1,4 @@
+import React from 'react'
 import colors from '../styles/colors'
 import styled from 'styled-components/macro'
 
@@ -26,4 +27,10 @@ const SubHeading = styled.h2`
 	}
 `
 
-export default SubHeading
+export default function Subheading(props) {
+	return (
+		<SubHeading>
+			<span>{props.children}</span>
+		</SubHeading>
+	)
+}

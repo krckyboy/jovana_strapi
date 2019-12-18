@@ -18,9 +18,7 @@ export default function AboutMe() {
 			<main className={'content'}>
 				<div className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">O meni</h1>
-					<SubHeading>
-						<span>Kreator</span>
-					</SubHeading>
+					<SubHeading>Kreator</SubHeading>
 					<Img src="/images/jovana.jpg" alt="" />
 					<P>
 						Chocolate cake tiramisu dessert powder fruitcake.
@@ -39,9 +37,7 @@ export default function AboutMe() {
 						cookie gummies.
 					</P>
 
-					<SubHeading>
-						<span>Umetnik</span>
-					</SubHeading>
+					<SubHeading>Umetnik</SubHeading>
 					<Img src="/images/jovana.jpg" alt="" />
 					<P>
 						Chocolate cake tiramisu dessert powder fruitcake.
@@ -60,9 +56,7 @@ export default function AboutMe() {
 						cookie gummies.
 					</P>
 
-					<SubHeading>
-						<span>Asistent režije</span>
-					</SubHeading>
+					<SubHeading>Asistent režije</SubHeading>
 					<P>
 						Chupa chups jelly-o tootsie roll gingerbread macaroon
 						wafer macaroon. Jelly tootsie roll halvah sweet danish
