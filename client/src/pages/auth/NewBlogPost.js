@@ -31,6 +31,17 @@ const Input = styled.input`
 	font-family: 'Work Sans', sans-serif;
 `
 
+const TextArea = styled.textarea`
+	width: 100%;
+	margin-top: 1.2rem;
+	background-color: ${colors.backgroundColor};
+	border: 2px solid ${colors.primary};
+	padding: 1.2rem;
+	border-radius: 6px;
+	max-width: 100%;
+	font-family: 'Work Sans', sans-serif;
+`
+
 const FormGroup = styled.div`
 	&:not(:last-of-type) {
 		margin-bottom: 2.4rem;
@@ -39,6 +50,7 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
 	font-size: 1.6rem;
+	display: block;
 	font-weight: 500;
 	color: ${colors.common};
 `
@@ -62,15 +74,19 @@ export default function NewBlogPost() {
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label htmlFor={'title'}>Naslov</Label>
-						<Input id={'title'} />
+						<Input required id={'title'} />
+					</FormGroup>
+					<FormGroup>
+						<Label htmlFor={'description'}>Opis</Label>
+						<TextArea required rows="4" id={'description'} />
 					</FormGroup>
 					<FormGroup>
 						<Label htmlFor={'text'}>Tekst</Label>
-						<Input id="text" />
+						<Input required id="text" />
 					</FormGroup>
 					<FormGroup>
 						<Label htmlFor={'image'}>Slika</Label>
-						<Input id="image" type={'file'} />
+						<Input required id="image" type={'file'} />
 					</FormGroup>
 					<Button style={loginButtonStyle} type={'primary'}>
 						Kreiraj post

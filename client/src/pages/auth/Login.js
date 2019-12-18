@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Layout from '../../components/layout/Layout'
 import logo from '../../assets/images/svg/logo.svg'
 import styled from 'styled-components/macro'
@@ -54,15 +54,20 @@ const loginButtonStyle = {
 	marginTop: '3.2rem',
 }
 
-export default function Login() {
-	const { authentication: auth, dispatch: dispatchAuth } = useContext(
-		AuthenticationContext
-	)
+export default function Login(props) {
+	const { dispatch: dispatchAuth } = useContext(AuthenticationContext)
 	const { dispatch: dispatchMessage, message } = useContext(MessagesContext)
 
 	const { value: username, handleChange: handleChangeLogin } = useInputState(
 		''
 	)
+
+	const [
+		shouldRedirectToPreviousRoute,
+		setShouldRedirectToPreviousRoute,
+	] = useState(false)
+
+	const [shouldGoToIndex, setShouldGoToIndex] = useState(false)
 
 	const {
 		value: password,
@@ -102,10 +107,20 @@ export default function Login() {
 
 			// Set token inside axios headers
 			setAuthToken(data.jwt)
+
+			if (props.location.from && props.location.from.pathname) {
+				setShouldRedirectToPreviousRoute(true)
+			} else {
+				setShouldGoToIndex(true)
+			}
 		}
 	}
 
-	if (auth && auth.token) {
+	if (shouldRedirectToPreviousRoute) {
+		return <Redirect to={props.location.from.pathname} />
+	}
+
+	if (shouldGoToIndex) {
 		return <Redirect to={'/'} />
 	}
 

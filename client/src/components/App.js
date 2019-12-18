@@ -7,6 +7,7 @@ import '../styles/App.css'
 import AuthenticationProvider from '../contexts/authenticationContext'
 import MessagesProvider from '../contexts/messagesContext'
 import setAuthToken from '../utils/setAuthToken'
+import PrivateRoute from './PrivateRoute'
 
 const Home = lazy(() => import('../pages/Home'))
 const AboutMe = lazy(() => import('../pages/AboutMe'))
@@ -27,7 +28,6 @@ if (localStorage.token) {
 // # (designed) Create am 'edit blog page'
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
-// # Show if user is logged
 function App() {
 	return (
 		<AuthenticationProvider>
@@ -60,7 +60,7 @@ function App() {
 									path={process.env.PUBLIC_URL + '/blog'}
 									component={Blog}
 								/>
-								<Route
+								<PrivateRoute
 									exact
 									path={process.env.PUBLIC_URL + '/blog/novi'}
 									component={NewBlogPost}
