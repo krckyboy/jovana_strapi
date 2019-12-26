@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
 import GoBack from '../components/GoBack'
 import fetchSingleBlog from '../api/fetchSingleBlog'
 import colors from '../styles/colors'
 import marked from 'marked'
+import apiWrapper from '../utils/apiWrapper'
+import { Redirect } from 'react-router-dom'
+import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const Img = styled.img`
 	max-width: 100%;
@@ -89,13 +92,33 @@ export default function Blog({ match }) {
 	const [blog, setBlog] = useState(null)
 	const blogId = match.params.id
 
+	const { dispatch: authDispatch } = useContext(AuthenticationContext)
+
+	// Redirect to blog
+	const [goBackToBlogs, setGoBackToBlogs] = useState(false)
+
 	useEffect(() => {
 		;(async () => {
-			const { blogPost } = await fetchSingleBlog(blogId)
-			// @todo Check if response is error and then clear login
-			setBlog(blogPost)
+			// Checking if the API returns an error
+			const data = await apiWrapper(
+				() => fetchSingleBlog(blogId),
+				authDispatch,
+				() => setGoBackToBlogs(!goBackToBlogs)
+			)
+
+			// If there isn't an error, update data
+			if (!data.error) {
+				const { blogPost } = data
+				setBlog(blogPost)
+			}
 		})()
-	}, [blogId])
+	}, [blogId, goBackToBlogs, authDispatch])
+
+	if (goBackToBlogs) {
+		// @todo Could also add a specific 404 component for not found blog
+		return <Redirect to={process.env.PUBLIC_URL + '/blog'} />
+	}
+
 	return (
 		<Layout>
 			<main className={'content'}>

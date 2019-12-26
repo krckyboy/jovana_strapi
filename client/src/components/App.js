@@ -35,7 +35,7 @@ if (localStorage.authentication) {
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
 //@ todo Add 404 page
-// @todo Each API call needs to be checked for errors and if status code is 401, dispatch clear token
+// (done, probably) Each API call needs to be checked for errors and if status code is 401, dispatch clear token
 // Perhaps add a HOC that will import context, api wrapper, implement reload state and pass it to the child component
 function App() {
 	return (

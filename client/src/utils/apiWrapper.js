@@ -3,7 +3,7 @@
 
 import setAuthToken from './setAuthToken'
 
-export default async (apiCall, dispatch, reload) => {
+export default async (apiCall, dispatch, errFunc) => {
 	// debugger
 	try {
 		const data = await apiCall()
@@ -11,7 +11,7 @@ export default async (apiCall, dispatch, reload) => {
 	} catch (e) {
 		dispatch({ type: 'LOGOUT' })
 		setAuthToken()
-		reload()
+		errFunc() // For example reload()
 		return { error: e }
 	}
 }
