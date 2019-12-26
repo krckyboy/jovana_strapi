@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
 import PaginationControls from '../components/PaginationControls.js'
 import { device } from '../styles/breakPoints'
 import fetchProducts from '../api/fetchProducts'
 import queryString from 'query-string'
+import apiWrapper from '../utils/apiWrapper'
+import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const ImgContainer = styled.div`
 	margin-bottom: 7.2rem;
@@ -78,13 +80,17 @@ function Products({ products }) {
 export default function MyWork({ location, history }) {
 	// Actual products
 	const [products, setProducts] = useState(null)
+	const { dispatch: authDispatch } = useContext(AuthenticationContext)
+
+	// Reloads if error
+	const [reload, setReload] = useState(false)
 
 	// Fetching the page number from query string and then putting
 	// that value into state for re-rendering purpose.
 	const { page: parsedPage } = queryString.parse(location.search)
 	const [page, setPage] = useState(parsedPage || 1)
 
-	// Getting the final page number to be passed to PaginationControls.
+	// Getting the calculated final/last page number to be passed to PaginationControls.
 	const [finalPage, setFinalPage] = useState(1)
 
 	const [loading, setLoading] = useState(false)
@@ -92,12 +98,20 @@ export default function MyWork({ location, history }) {
 	useEffect(() => {
 		;(async () => {
 			setLoading(true)
-			const { products, pagesCount } = await fetchProducts(page)
-			// @todo Check if response is error and then clear login
-			setProducts(products)
-			setFinalPage(pagesCount)
-			setLoading(false)
-			window.scrollTo(0, 0)
+
+			const data = await apiWrapper(
+				() => fetchProducts(page),
+				authDispatch,
+				() => setReload(!reload)
+			)
+
+			if (!data.error) {
+				const { products, pagesCount } = data
+				setProducts(products)
+				setFinalPage(pagesCount)
+				setLoading(false)
+				window.scrollTo(0, 0)
+			}
 		})()
 	}, [page])
 

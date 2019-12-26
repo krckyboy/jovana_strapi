@@ -57,7 +57,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 				)
 			}
 		})()
-	}, [isAuthenticated, dispatchMessage])
+	}, [isAuthenticated, dispatchMessage, dispatchAuth])
 
 	return (
 		<Route

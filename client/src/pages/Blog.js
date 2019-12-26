@@ -61,6 +61,7 @@ export default function Blog({ location, history }) {
 	const [blogs, setBlogs] = useState(null)
 	const { dispatch: authDispatch } = useContext(AuthenticationContext)
 
+	// Reloads if error
 	const [reload, setReload] = useState(false)
 
 	// Fetching the page number from query string and then putting
@@ -68,7 +69,7 @@ export default function Blog({ location, history }) {
 	const { page: parsedPage } = queryString.parse(location.search)
 	const [page, setPage] = useState(parsedPage || 1)
 
-	// Getting the final page number to be passed to PaginationControls.
+	// Getting the calculated final/last page number to be passed to PaginationControls.
 	const [finalPage, setFinalPage] = useState(1)
 
 	const [loading, setLoading] = useState(false)
@@ -76,12 +77,15 @@ export default function Blog({ location, history }) {
 	useEffect(() => {
 		;(async () => {
 			setLoading(true)
+
+			// Checking if the API returns an error
 			const data = await apiWrapper(
 				() => fetchBlogs(page),
 				authDispatch,
 				() => setReload(!reload)
 			)
 
+			// If there isn't an error, update data
 			if (!data.error) {
 				const { blogs, pagesCount } = data
 				setBlogs(blogs)
@@ -90,8 +94,9 @@ export default function Blog({ location, history }) {
 				window.scrollTo(0, 0)
 			}
 		})()
-	}, [page, reload])
+	}, [page, reload, authDispatch])
 
+	// Updates the page number in url
 	function updatePage(page) {
 		history.push({
 			pathname: '/blog',
