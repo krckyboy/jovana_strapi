@@ -11,5 +11,5 @@ export default function(initialValue) {
 		setValue('')
 	}
 
-	return { value, handleChange, reset }
+	return { value, handleChange, reset, setValue }
 }

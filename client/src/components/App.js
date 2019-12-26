@@ -16,6 +16,7 @@ const Blog = lazy(() => import('../pages/Blog'))
 const BlogPost = lazy(() => import('../pages/BlogPost'))
 const Login = lazy(() => import('../pages/auth/Login'))
 const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
+const EditBlogPost = lazy(() => import('../pages/auth/EditBlogPost'))
 
 // Set auth token if in local storage
 if (localStorage.authentication) {
@@ -31,12 +32,11 @@ if (localStorage.authentication) {
 // # Add content loader for nice feel.
 // # (designed) Create a 'new product page'
 // # (coded) Create a 'new blog page'
-// # (designed) Create am 'edit blog page'
+// # (coded) Create am 'edit blog page'
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
 //@ todo Add 404 page
 // (done, probably) Each API call needs to be checked for errors and if status code is 401, dispatch clear token
-// Perhaps add a HOC that will import context, api wrapper, implement reload state and pass it to the child component
 function App() {
 	return (
 		<AuthenticationProvider>
@@ -73,6 +73,14 @@ function App() {
 									exact
 									path={process.env.PUBLIC_URL + '/blog/novi'}
 									component={NewBlogPost}
+								/>
+								<PrivateRoute
+									exact
+									path={
+										process.env.PUBLIC_URL +
+										'/blog/:id/edit'
+									}
+									component={EditBlogPost}
 								/>
 								<Route
 									exact

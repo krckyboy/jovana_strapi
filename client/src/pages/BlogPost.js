@@ -64,7 +64,7 @@ const BodyContainer = styled.div`
 		}
 	}
 `
-// @todo Add options when logged
+// @todo Add options when logged (edit / delete)
 function BlogPost({ blogData }) {
 	const {
 		body,
