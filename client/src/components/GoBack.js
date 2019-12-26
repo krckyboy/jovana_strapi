@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 const Container = styled.div`
 	display: inline-flex;
 	align-items: center;
-	margin-bottom: 1.6rem;
 	& img {
 		margin-right: 1.2rem;
 	}
@@ -22,7 +21,7 @@ export default function GoBack() {
 		<div>
 			<Link to={process.env.PUBLIC_URL + '/blog'}>
 				<Container>
-					<img src={goBackArrow} alt='Go back' />
+					<img src={goBackArrow} alt="Go back" />
 					<span>Nazad</span>
 				</Container>
 			</Link>

@@ -31,8 +31,8 @@ if (localStorage.authentication) {
 
 // # Add content loader for nice feel.
 // # (designed) Create a 'new product page'
-// # (coded) Create a 'new blog page'
-// # (coded) Create am 'edit blog page'
+// # (logic needed) Create a 'new blog page'
+// # (logic needed) Create am 'edit blog page'
 // # (designed) Create a 'delete blog modal confirmation'
 // # (designed) Create a 'delete product modal confirmation'
 //@ todo Add 404 page

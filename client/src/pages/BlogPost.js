@@ -8,6 +8,7 @@ import marked from 'marked'
 import apiWrapper from '../utils/apiWrapper'
 import { Redirect } from 'react-router-dom'
 import { AuthenticationContext } from '../contexts/authenticationContext'
+import options from '../assets/images/svg/threeDots.svg'
 
 const Img = styled.img`
 	max-width: 100%;
@@ -15,6 +16,16 @@ const Img = styled.img`
 	height: 25rem;
 	width: 100%;
 	object-fit: cover;
+`
+
+const Options = styled.img`
+	cursor: pointer;
+`
+
+const NavOptionsContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1.6rem;
 `
 
 // h2 === SubHeading, the rest of the headings are just fallbacks
@@ -65,7 +76,7 @@ const BodyContainer = styled.div`
 	}
 `
 // @todo Add options when logged (edit / delete)
-function BlogPost({ blogData }) {
+function BlogPost({ blogData, isAuthenticated }) {
 	const {
 		body,
 		title,
@@ -80,7 +91,11 @@ function BlogPost({ blogData }) {
 
 	return (
 		<>
-			<GoBack />
+			<NavOptionsContainer>
+				<GoBack />
+				{isAuthenticated && <Options src={options} alt={'Options'} />}
+				{/*	@todo Add options toggle on / off */}
+			</NavOptionsContainer>
 			<Img src={imageUrl} alt={title} />
 			<h1 className="h1">{title}</h1>
 			<BodyContainer dangerouslySetInnerHTML={getMarkDownText()} />
@@ -92,7 +107,9 @@ export default function Blog({ match }) {
 	const [blog, setBlog] = useState(null)
 	const blogId = match.params.id
 
-	const { dispatch: authDispatch } = useContext(AuthenticationContext)
+	const { dispatch: authDispatch, authentication: auth } = useContext(
+		AuthenticationContext
+	)
 
 	// Redirect to blog
 	const [goBackToBlogs, setGoBackToBlogs] = useState(false)
@@ -123,7 +140,14 @@ export default function Blog({ match }) {
 		<Layout>
 			<main className={'content'}>
 				<div className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
-					{blog && <BlogPost blogData={blog} />}
+					{blog && (
+						<BlogPost
+							blogData={blog}
+							isAuthenticated={Boolean(
+								auth && auth.token && auth.user
+							)}
+						/>
+					)}
 				</div>
 			</main>
 		</Layout>
