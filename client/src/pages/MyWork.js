@@ -113,7 +113,7 @@ export default function MyWork({ location, history }) {
 				window.scrollTo(0, 0)
 			}
 		})()
-	}, [page, reload, authDispatch])
+	}, [page])
 
 	function updatePage(page) {
 		history.push({
