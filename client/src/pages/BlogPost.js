@@ -9,24 +9,8 @@ import apiWrapper from '../utils/apiWrapper'
 import { Redirect } from 'react-router-dom'
 import { AuthenticationContext } from '../contexts/authenticationContext'
 import options from '../assets/images/svg/threeDots.svg'
-
-const Img = styled.img`
-	max-width: 100%;
-	margin-bottom: 3.2rem;
-	height: 25rem;
-	width: 100%;
-	object-fit: cover;
-`
-
-const Options = styled.img`
-	cursor: pointer;
-`
-
-const NavOptionsContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 1.6rem;
-`
+import editIcon from '../assets/images/svg/edit.svg'
+import deleteIcon from '../assets/images/svg/delete.svg'
 
 // h2 === SubHeading, the rest of the headings are just fallbacks
 const BodyContainer = styled.div`
@@ -75,6 +59,91 @@ const BodyContainer = styled.div`
 		}
 	}
 `
+
+const Img = styled.img`
+	max-width: 100%;
+	margin-bottom: 3.2rem;
+	height: 25rem;
+	width: 100%;
+	object-fit: cover;
+`
+
+const Options = styled.img`
+	cursor: pointer;
+`
+
+const NavOptionsContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1.6rem;
+`
+
+const AdminOptionsContainer = styled.div`
+	z-index: 99999;
+	position: absolute;
+	background-color: white;
+	padding: 2rem;
+	border-radius: 1rem;
+	min-width: 18rem;
+	display: flex;
+	top: 4rem;
+	right: 0;
+
+	li {
+		font-size: 1.3rem;
+		cursor: pointer;
+		display: flex;
+		text-align: left;
+		align-items: center;
+		& > img {
+			margin-right: 0.8rem;
+		}
+	}
+
+	li:nth-child(2) {
+		margin-top: 1rem;
+		color: ${colors.failure};
+	}
+`
+
+const AdminOptionsUl = styled.ul`
+	margin: 0 auto;
+	display: inline-block;
+	text-align: center;
+`
+
+const OptionsContainer = styled.div`
+	position: relative;
+`
+
+const Overlay = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.65);
+	z-index: 9999;
+	color: white;
+`
+
+function AdminOptions() {
+	return (
+		<AdminOptionsContainer>
+			<AdminOptionsUl>
+				<li>
+					<img src={editIcon} alt={'Edit'} />
+					Edit project
+				</li>
+				<li>
+					<img src={deleteIcon} alt={'Delete'} />
+					Delete project
+				</li>
+			</AdminOptionsUl>
+		</AdminOptionsContainer>
+	)
+}
+
 // @todo Add options when logged (edit / delete)
 function BlogPost({ blogData, isAuthenticated }) {
 	const {
@@ -89,11 +158,29 @@ function BlogPost({ blogData, isAuthenticated }) {
 		return { __html: rawMarkup }
 	}
 
+	const [isOpenOptions, toggleIsOpenOptions] = useState(false)
+
+	useEffect(() => {
+		document.body.style.overflow = isOpenOptions ? 'hidden' : ''
+	}, [isOpenOptions])
+
 	return (
 		<>
+			{isOpenOptions && isAuthenticated && (
+				<Overlay onClick={() => toggleIsOpenOptions(false)} />
+			)}
 			<NavOptionsContainer>
 				<GoBack />
-				{isAuthenticated && <Options src={options} alt={'Options'} />}
+				<OptionsContainer>
+					{isAuthenticated && (
+						<Options
+							src={options}
+							alt={'Options'}
+							onClick={() => toggleIsOpenOptions(!isOpenOptions)}
+						/>
+					)}
+					{isOpenOptions && isAuthenticated && <AdminOptions />}
+				</OptionsContainer>
 				{/*	@todo Add options toggle on / off */}
 			</NavOptionsContainer>
 			<Img src={imageUrl} alt={title} />
