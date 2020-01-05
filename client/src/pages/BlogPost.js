@@ -224,6 +224,7 @@ function BlogPost({ blogData, isAuthenticated }) {
 
 	const [isOpenOptions, toggleIsOpenOptions] = useState(false)
 	const [isDeleteConfOpen, toggleIsDeleteConfOpen] = useState(false)
+	const [shouldRedirect, setShouldRedirect] = useState(false)
 
 	useEffect(() => {
 		document.body.style.overflow =
@@ -242,12 +243,15 @@ function BlogPost({ blogData, isAuthenticated }) {
 
 	async function handleDeleteBlogPost() {
 		try {
-			console.log('deleting')
 			await deleteBlogPost(id)
-			console.log('Deleted')
+			setShouldRedirect(true)
 		} catch (e) {
 			console.error(e)
 		}
+	}
+
+	if (shouldRedirect) {
+		return <Redirect to={process.env.PUBLIC_URL + '/blog'} />
 	}
 
 	return (
