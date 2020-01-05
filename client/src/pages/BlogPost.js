@@ -11,6 +11,7 @@ import { AuthenticationContext } from '../contexts/authenticationContext'
 import options from '../assets/images/svg/threeDots.svg'
 import editIcon from '../assets/images/svg/edit.svg'
 import deleteIcon from '../assets/images/svg/delete.svg'
+import xCircle from '../assets/images/svg/xCircle.svg'
 
 // h2 === SubHeading, the rest of the headings are just fallbacks
 const BodyContainer = styled.div`
@@ -122,29 +123,87 @@ const Overlay = styled.div`
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.65);
+	background-color: rgba(143, 143, 143, 0.69);
 	z-index: 9999;
 	color: white;
 `
 
-function AdminOptions() {
+const DeleteConfirmationModalContainer = styled.div`
+	background-color: white;
+	padding: 2rem;
+	z-index: 99999;
+	border-radius: 1rem;
+	min-width: 18rem;
+	display: flex;
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%);
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+`
+
+const ModalTitle = styled.span`
+	font-size: 2.4rem;
+	margin: 2.4rem 0;
+`
+
+const ModalOptionsContainer = styled.ul`
+	display: flex;
+	align-items: center;
+
+	li {
+		font-size: 1.4rem;
+		font-weight: 600;
+		display: flex;
+		align-items: center;
+		margin: 0 1.2rem;
+		cursor: pointer;
+	}
+
+	li:nth-child(2) {
+		color: ${colors.failure};
+	}
+
+	img {
+		margin-right: 0.4rem;
+	}
+`
+
+function DeleteConfirmationModal({ killModalsAndOverlay }) {
+	return (
+		<DeleteConfirmationModalContainer>
+			<img src={xCircle} alt="Delete post?" />
+			<ModalTitle>Da li ste sigurni?</ModalTitle>
+			<ModalOptionsContainer>
+				<li onClick={() => killModalsAndOverlay()}>Poništi</li>
+				<li>
+					<img src={deleteIcon} alt={'Delete'} /> Izbriši post
+				</li>
+			</ModalOptionsContainer>
+		</DeleteConfirmationModalContainer>
+	)
+}
+
+function AdminOptions({ deleteConfirmShow }) {
 	return (
 		<AdminOptionsContainer>
 			<AdminOptionsUl>
 				<li>
+					{/*@todo Add redirect here*/}
 					<img src={editIcon} alt={'Edit'} />
-					Edit project
+					Izmeni post
 				</li>
-				<li>
+				<li onClick={() => deleteConfirmShow()}>
 					<img src={deleteIcon} alt={'Delete'} />
-					Delete project
+					Izbriši post
 				</li>
 			</AdminOptionsUl>
 		</AdminOptionsContainer>
 	)
 }
 
-// @todo Add options when logged (edit / delete)
 function BlogPost({ blogData, isAuthenticated }) {
 	const {
 		body,
@@ -159,15 +218,32 @@ function BlogPost({ blogData, isAuthenticated }) {
 	}
 
 	const [isOpenOptions, toggleIsOpenOptions] = useState(false)
+	const [isDeleteConfOpen, toggleIsDeleteConfOpen] = useState(false)
 
 	useEffect(() => {
-		document.body.style.overflow = isOpenOptions ? 'hidden' : ''
-	}, [isOpenOptions])
+		document.body.style.overflow =
+			isOpenOptions || isDeleteConfOpen ? 'hidden' : ''
+	}, [isOpenOptions, isDeleteConfOpen])
+
+	function showDeleteConfirm() {
+		toggleIsDeleteConfOpen(true)
+		toggleIsOpenOptions(false)
+	}
+
+	function killModalsAndOverlay() {
+		toggleIsOpenOptions(false)
+		toggleIsDeleteConfOpen(false)
+	}
 
 	return (
 		<>
-			{isOpenOptions && isAuthenticated && (
-				<Overlay onClick={() => toggleIsOpenOptions(false)} />
+			{(isOpenOptions || isDeleteConfOpen) && isAuthenticated && (
+				<Overlay onClick={killModalsAndOverlay} />
+			)}
+			{isDeleteConfOpen && isAuthenticated && (
+				<DeleteConfirmationModal
+					killModalsAndOverlay={killModalsAndOverlay}
+				/>
 			)}
 			<NavOptionsContainer>
 				<GoBack />
@@ -179,9 +255,10 @@ function BlogPost({ blogData, isAuthenticated }) {
 							onClick={() => toggleIsOpenOptions(!isOpenOptions)}
 						/>
 					)}
-					{isOpenOptions && isAuthenticated && <AdminOptions />}
+					{isOpenOptions && isAuthenticated && (
+						<AdminOptions deleteConfirmShow={showDeleteConfirm} />
+					)}
 				</OptionsContainer>
-				{/*	@todo Add options toggle on / off */}
 			</NavOptionsContainer>
 			<Img src={imageUrl} alt={title} />
 			<h1 className="h1">{title}</h1>
