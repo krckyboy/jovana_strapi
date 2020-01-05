@@ -3,10 +3,11 @@ import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
 import GoBack from '../components/GoBack'
 import fetchSingleBlog from '../api/fetchSingleBlog'
+import deleteBlogPost from '../api/deleteBlogPost'
 import colors from '../styles/colors'
 import marked from 'marked'
 import apiWrapper from '../utils/apiWrapper'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { AuthenticationContext } from '../contexts/authenticationContext'
 import options from '../assets/images/svg/threeDots.svg'
 import editIcon from '../assets/images/svg/edit.svg'
@@ -171,14 +172,17 @@ const ModalOptionsContainer = styled.ul`
 	}
 `
 
-function DeleteConfirmationModal({ killModalsAndOverlay }) {
+function DeleteConfirmationModal({
+	killModalsAndOverlay,
+	handleDeleteBlogPost,
+}) {
 	return (
 		<DeleteConfirmationModalContainer>
 			<img src={xCircle} alt="Delete post?" />
 			<ModalTitle>Da li ste sigurni?</ModalTitle>
 			<ModalOptionsContainer>
 				<li onClick={() => killModalsAndOverlay()}>Poništi</li>
-				<li>
+				<li onClick={async () => await handleDeleteBlogPost()}>
 					<img src={deleteIcon} alt={'Delete'} /> Izbriši post
 				</li>
 			</ModalOptionsContainer>
@@ -186,16 +190,17 @@ function DeleteConfirmationModal({ killModalsAndOverlay }) {
 	)
 }
 
-function AdminOptions({ deleteConfirmShow }) {
+function AdminOptions({ deleteConfirmShow, id }) {
 	return (
 		<AdminOptionsContainer>
 			<AdminOptionsUl>
 				<li>
-					{/*@todo Add redirect here*/}
 					<img src={editIcon} alt={'Edit'} />
-					Izmeni post
+					<Link to={process.env.PUBLIC_URL + `/blog/${id}/edit`}>
+						Izmeni post
+					</Link>
 				</li>
-				<li onClick={() => deleteConfirmShow()}>
+				<li onClick={deleteConfirmShow}>
 					<img src={deleteIcon} alt={'Delete'} />
 					Izbriši post
 				</li>
@@ -235,6 +240,16 @@ function BlogPost({ blogData, isAuthenticated }) {
 		toggleIsDeleteConfOpen(false)
 	}
 
+	async function handleDeleteBlogPost() {
+		try {
+			console.log('deleting')
+			await deleteBlogPost(id)
+			console.log('Deleted')
+		} catch (e) {
+			console.error(e)
+		}
+	}
+
 	return (
 		<>
 			{(isOpenOptions || isDeleteConfOpen) && isAuthenticated && (
@@ -243,6 +258,7 @@ function BlogPost({ blogData, isAuthenticated }) {
 			{isDeleteConfOpen && isAuthenticated && (
 				<DeleteConfirmationModal
 					killModalsAndOverlay={killModalsAndOverlay}
+					handleDeleteBlogPost={handleDeleteBlogPost}
 				/>
 			)}
 			<NavOptionsContainer>
@@ -256,7 +272,10 @@ function BlogPost({ blogData, isAuthenticated }) {
 						/>
 					)}
 					{isOpenOptions && isAuthenticated && (
-						<AdminOptions deleteConfirmShow={showDeleteConfirm} />
+						<AdminOptions
+							deleteConfirmShow={showDeleteConfirm}
+							id={id}
+						/>
 					)}
 				</OptionsContainer>
 			</NavOptionsContainer>
