@@ -27,13 +27,7 @@ if (localStorage.authentication) {
 }
 
 // # Add content loader for nice feel.
-// # (designed) Create a 'new product page'
-// # (logic needed) Create a 'new blog page'
-// # (logic needed) Create am 'edit blog page'
-// # (designed) Create a 'delete blog modal confirmation'
-// # (designed) Create a 'delete product modal confirmation'
-//@ todo Add 404 page
-// (done, probably) Each API call needs to be checked for errors and if status code is 401, dispatch clear token
+// # Add 404 page
 function App() {
 	return (
 		<AuthenticationProvider>
