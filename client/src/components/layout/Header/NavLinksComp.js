@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import React, { useContext } from 'react'
-import { AuthenticationContext } from '../../../contexts/authenticationContext'
-import { MessagesContext } from '../../../contexts/messagesContext'
-import dispatchWithTimeoutDispatch from '../../../contexts/utils/dispatchWithTimeoutDispatch'
+// import { AuthenticationContext } from '../../../contexts/authenticationContext'
+// import { MessagesContext } from '../../../contexts/messagesContext'
+// import dispatchWithTimeoutDispatch from '../../../contexts/utils/dispatchWithTimeoutDispatch'
 import styled from 'styled-components/macro'
 
 const navLinkStyle = {
@@ -30,20 +30,20 @@ const Username = styled.span`
 `
 
 export default function NavLinksComp() {
-	const { dispatch: dispatchAuth, authentication: auth } = useContext(
-		AuthenticationContext
-	)
-	const { dispatch: dispatchMsg, message } = useContext(MessagesContext)
+	// const { dispatch: dispatchAuth, authentication: auth } = useContext(
+	// 	AuthenticationContext
+	// )
+	// const { dispatch: dispatchMsg, message } = useContext(MessagesContext)
 
-	function handleOnClickLogout() {
-		dispatchAuth({ type: 'LOGOUT' })
-		dispatchWithTimeoutDispatch(
-			dispatchMsg,
-			{ type: 'LOGOUT' },
-			{ type: 'CLEAR_MESSAGE' },
-			message
-		)
-	}
+	// function handleOnClickLogout() {
+	// 	dispatchAuth({ type: 'LOGOUT' })
+	// 	dispatchWithTimeoutDispatch(
+	// 		dispatchMsg,
+	// 		{ type: 'LOGOUT' },
+	// 		{ type: 'CLEAR_MESSAGE' },
+	// 		message
+	// 	)
+	// }
 
 	return (
 		<>
@@ -80,15 +80,15 @@ export default function NavLinksComp() {
 			>
 				Blog
 			</NavLink>
-			{auth && auth.token && auth.user && (
-				<ButtonLogOut
-					style={navLinkStyle}
-					onClick={handleOnClickLogout}
-				>
-					Izloguj se
-					<Username>({auth.user.username})</Username>
-				</ButtonLogOut>
-			)}
+			{/*{auth && auth.token && auth.user && (*/}
+			{/*	<ButtonLogOut*/}
+			{/*		style={navLinkStyle}*/}
+			{/*		onClick={handleOnClickLogout}*/}
+			{/*	>*/}
+			{/*		Izloguj se*/}
+			{/*		<Username>({auth.user.username})</Username>*/}
+			{/*	</ButtonLogOut>*/}
+			{/*)}*/}
 		</>
 	)
 }

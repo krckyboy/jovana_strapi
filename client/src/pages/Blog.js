@@ -7,7 +7,7 @@ import { device } from '../styles/breakPoints'
 import fetchBlogs from '../api/fetchBlogs'
 import queryString from 'query-string'
 import apiWrapper from '../utils/apiWrapper'
-import { AuthenticationContext } from '../contexts/authenticationContext'
+// import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const StyledBlogPostCard = styled(BlogPostCard)`
 	@media only screen and ${device.laptopL} {
@@ -59,7 +59,7 @@ const Section = styled.section`
 
 export default function Blog({ location, history }) {
 	const [blogs, setBlogs] = useState(null)
-	const { dispatch: authDispatch } = useContext(AuthenticationContext)
+	// const { dispatch: authDispatch } = useContext(AuthenticationContext)
 
 	// Reloads if error
 	const [reload, setReload] = useState(false)
@@ -81,7 +81,7 @@ export default function Blog({ location, history }) {
 			// Checking if the API returns an error
 			const data = await apiWrapper(
 				() => fetchBlogs(page),
-				authDispatch,
+				// authDispatch,
 				() => setReload(!reload)
 			)
 
@@ -94,7 +94,7 @@ export default function Blog({ location, history }) {
 				window.scrollTo(0, 0)
 			}
 		})()
-	}, [page, reload, authDispatch])
+	}, [page, reload /*authDispatch*/])
 
 	// Updates the page number in url
 	function updatePage(page) {

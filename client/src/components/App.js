@@ -14,9 +14,6 @@ const AboutMe = lazy(() => import('../pages/AboutMe'))
 const MyWork = lazy(() => import('../pages/MyWork'))
 const Blog = lazy(() => import('../pages/Blog'))
 const BlogPost = lazy(() => import('../pages/BlogPost'))
-const Login = lazy(() => import('../pages/auth/Login'))
-const NewBlogPost = lazy(() => import('../pages/auth/NewBlogPost'))
-const EditBlogPost = lazy(() => import('../pages/auth/EditBlogPost'))
 
 // Set auth token if in local storage
 if (localStorage.authentication) {
@@ -69,28 +66,10 @@ function App() {
 									path={process.env.PUBLIC_URL + '/blog'}
 									component={Blog}
 								/>
-								<PrivateRoute
-									exact
-									path={process.env.PUBLIC_URL + '/blog/novi'}
-									component={NewBlogPost}
-								/>
-								<PrivateRoute
-									exact
-									path={
-										process.env.PUBLIC_URL +
-										'/blog/:id/edit'
-									}
-									component={EditBlogPost}
-								/>
 								<Route
 									exact
 									path={process.env.PUBLIC_URL + '/blog/:id'}
 									component={BlogPost}
-								/>
-								<Route
-									exact
-									path={process.env.PUBLIC_URL + '/login'}
-									component={Login}
 								/>
 							</Switch>
 						</>

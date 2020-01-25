@@ -3,16 +3,16 @@ import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
 import GoBack from '../components/GoBack'
 import fetchSingleBlog from '../api/fetchSingleBlog'
-import deleteBlogPost from '../api/deleteBlogPost'
+// import deleteBlogPost from '../api/deleteBlogPost'
 import colors from '../styles/colors'
 import marked from 'marked'
 import apiWrapper from '../utils/apiWrapper'
 import { Redirect, Link } from 'react-router-dom'
-import { AuthenticationContext } from '../contexts/authenticationContext'
-import options from '../assets/images/svg/threeDots.svg'
-import editIcon from '../assets/images/svg/edit.svg'
-import deleteIcon from '../assets/images/svg/delete.svg'
-import xCircle from '../assets/images/svg/xCircle.svg'
+// import { AuthenticationContext } from '../contexts/authenticationContext'
+// import options from '../assets/images/svg/threeDots.svg'
+// import editIcon from '../assets/images/svg/edit.svg'
+// import deleteIcon from '../assets/images/svg/delete.svg'
+// import xCircle from '../assets/images/svg/xCircle.svg'
 
 // h2 === SubHeading, the rest of the headings are just fallbacks
 const BodyContainer = styled.div`
@@ -172,42 +172,42 @@ const ModalOptionsContainer = styled.ul`
 	}
 `
 
-function DeleteConfirmationModal({
-	killModalsAndOverlay,
-	handleDeleteBlogPost,
-}) {
-	return (
-		<DeleteConfirmationModalContainer>
-			<img src={xCircle} alt="Delete post?" />
-			<ModalTitle>Da li ste sigurni?</ModalTitle>
-			<ModalOptionsContainer>
-				<li onClick={() => killModalsAndOverlay()}>Poništi</li>
-				<li onClick={async () => await handleDeleteBlogPost()}>
-					<img src={deleteIcon} alt={'Delete'} /> Izbriši post
-				</li>
-			</ModalOptionsContainer>
-		</DeleteConfirmationModalContainer>
-	)
-}
+// function DeleteConfirmationModal({
+// 	killModalsAndOverlay,
+// 	handleDeleteBlogPost,
+// }) {
+// 	return (
+// 		<DeleteConfirmationModalContainer>
+// 			<img src={xCircle} alt="Delete post?" />
+// 			<ModalTitle>Da li ste sigurni?</ModalTitle>
+// 			<ModalOptionsContainer>
+// 				<li onClick={() => killModalsAndOverlay()}>Poništi</li>
+// 				<li onClick={async () => await handleDeleteBlogPost()}>
+// 					<img src={deleteIcon} alt={'Delete'} /> Izbriši post
+// 				</li>
+// 			</ModalOptionsContainer>
+// 		</DeleteConfirmationModalContainer>
+// 	)
+// }
 
-function AdminOptions({ deleteConfirmShow, id }) {
-	return (
-		<AdminOptionsContainer>
-			<AdminOptionsUl>
-				<li>
-					<img src={editIcon} alt={'Edit'} />
-					<Link to={process.env.PUBLIC_URL + `/blog/${id}/edit`}>
-						Izmeni post
-					</Link>
-				</li>
-				<li onClick={deleteConfirmShow}>
-					<img src={deleteIcon} alt={'Delete'} />
-					Izbriši post
-				</li>
-			</AdminOptionsUl>
-		</AdminOptionsContainer>
-	)
-}
+// function AdminOptions({ deleteConfirmShow, id }) {
+// 	return (
+// 		<AdminOptionsContainer>
+// 			<AdminOptionsUl>
+// 				<li>
+// 					<img src={editIcon} alt={'Edit'} />
+// 					<Link to={process.env.PUBLIC_URL + `/blog/${id}/edit`}>
+// 						Izmeni post
+// 					</Link>
+// 				</li>
+// 				<li onClick={deleteConfirmShow}>
+// 					<img src={deleteIcon} alt={'Delete'} />
+// 					Izbriši post
+// 				</li>
+// 			</AdminOptionsUl>
+// 		</AdminOptionsContainer>
+// 	)
+// }
 
 function BlogPost({ blogData, isAuthenticated }) {
 	const {
@@ -226,29 +226,29 @@ function BlogPost({ blogData, isAuthenticated }) {
 	const [isDeleteConfOpen, toggleIsDeleteConfOpen] = useState(false)
 	const [shouldRedirect, setShouldRedirect] = useState(false)
 
-	useEffect(() => {
-		document.body.style.overflow =
-			isOpenOptions || isDeleteConfOpen ? 'hidden' : ''
-	}, [isOpenOptions, isDeleteConfOpen])
-
-	function showDeleteConfirm() {
-		toggleIsDeleteConfOpen(true)
-		toggleIsOpenOptions(false)
-	}
-
-	function killModalsAndOverlay() {
-		toggleIsOpenOptions(false)
-		toggleIsDeleteConfOpen(false)
-	}
-
-	async function handleDeleteBlogPost() {
-		try {
-			await deleteBlogPost(id)
-			setShouldRedirect(true)
-		} catch (e) {
-			console.error(e)
-		}
-	}
+	// useEffect(() => {
+	// 	document.body.style.overflow =
+	// 		isOpenOptions || isDeleteConfOpen ? 'hidden' : ''
+	// }, [isOpenOptions, isDeleteConfOpen])
+	//
+	// function showDeleteConfirm() {
+	// 	toggleIsDeleteConfOpen(true)
+	// 	toggleIsOpenOptions(false)
+	// }
+	//
+	// function killModalsAndOverlay() {
+	// 	toggleIsOpenOptions(false)
+	// 	toggleIsDeleteConfOpen(false)
+	// }
+	//
+	// async function handleDeleteBlogPost() {
+	// 	try {
+	// 		await deleteBlogPost(id)
+	// 		setShouldRedirect(true)
+	// 	} catch (e) {
+	// 		console.error(e)
+	// 	}
+	// }
 
 	if (shouldRedirect) {
 		return <Redirect to={process.env.PUBLIC_URL + '/blog'} />
@@ -256,33 +256,33 @@ function BlogPost({ blogData, isAuthenticated }) {
 
 	return (
 		<>
-			{(isOpenOptions || isDeleteConfOpen) && isAuthenticated && (
-				<Overlay onClick={killModalsAndOverlay} />
-			)}
-			{isDeleteConfOpen && isAuthenticated && (
-				<DeleteConfirmationModal
-					killModalsAndOverlay={killModalsAndOverlay}
-					handleDeleteBlogPost={handleDeleteBlogPost}
-				/>
-			)}
-			<NavOptionsContainer>
-				<GoBack />
-				<OptionsContainer>
-					{isAuthenticated && (
-						<Options
-							src={options}
-							alt={'Options'}
-							onClick={() => toggleIsOpenOptions(!isOpenOptions)}
-						/>
-					)}
-					{isOpenOptions && isAuthenticated && (
-						<AdminOptions
-							deleteConfirmShow={showDeleteConfirm}
-							id={id}
-						/>
-					)}
-				</OptionsContainer>
-			</NavOptionsContainer>
+			{/*{(isOpenOptions || isDeleteConfOpen) && isAuthenticated && (*/}
+			{/*	<Overlay onClick={killModalsAndOverlay} />*/}
+			{/*)}*/}
+			{/*{isDeleteConfOpen && isAuthenticated && (*/}
+			{/*	<DeleteConfirmationModal*/}
+			{/*		killModalsAndOverlay={killModalsAndOverlay}*/}
+			{/*		handleDeleteBlogPost={handleDeleteBlogPost}*/}
+			{/*	/>*/}
+			{/*)}*/}
+			{/*<NavOptionsContainer>*/}
+			{/*	<GoBack />*/}
+			{/*	<OptionsContainer>*/}
+			{/*		{isAuthenticated && (*/}
+			{/*			<Options*/}
+			{/*				src={options}*/}
+			{/*				alt={'Options'}*/}
+			{/*				onClick={() => toggleIsOpenOptions(!isOpenOptions)}*/}
+			{/*			/>*/}
+			{/*		)}*/}
+			{/*		{isOpenOptions && isAuthenticated && (*/}
+			{/*			<AdminOptions*/}
+			{/*				deleteConfirmShow={showDeleteConfirm}*/}
+			{/*				id={id}*/}
+			{/*			/>*/}
+			{/*		)}*/}
+			{/*	</OptionsContainer>*/}
+			{/*</NavOptionsContainer>*/}
 			<Img src={imageUrl} alt={title} />
 			<h1 className="h1">{title}</h1>
 			<BodyContainer dangerouslySetInnerHTML={getMarkDownText()} />
@@ -294,9 +294,9 @@ export default function Blog({ match }) {
 	const [blog, setBlog] = useState(null)
 	const blogId = match.params.id
 
-	const { dispatch: authDispatch, authentication: auth } = useContext(
-		AuthenticationContext
-	)
+	// const { dispatch: authDispatch, authentication: auth } = useContext(
+	// 	AuthenticationContext
+	// )
 
 	// Redirect to blog
 	const [goBackToBlogs, setGoBackToBlogs] = useState(false)
@@ -306,7 +306,7 @@ export default function Blog({ match }) {
 			// Checking if the API returns an error
 			const data = await apiWrapper(
 				() => fetchSingleBlog(blogId),
-				authDispatch,
+				// authDispatch,
 				() => setGoBackToBlogs(!goBackToBlogs)
 			)
 
@@ -316,7 +316,7 @@ export default function Blog({ match }) {
 				setBlog(blogPost)
 			}
 		})()
-	}, [blogId, goBackToBlogs, authDispatch])
+	}, [blogId, goBackToBlogs /*authDispatch*/])
 
 	if (goBackToBlogs) {
 		// @todo Could also add a specific 404 component for not found blog
@@ -330,9 +330,9 @@ export default function Blog({ match }) {
 					{blog && (
 						<BlogPost
 							blogData={blog}
-							isAuthenticated={Boolean(
-								auth && auth.token && auth.user
-							)}
+							// isAuthenticated={Boolean(
+							// 	auth && auth.token && auth.user
+							// )}
 						/>
 					)}
 				</div>

@@ -6,7 +6,7 @@ import { device } from '../styles/breakPoints'
 import fetchProducts from '../api/fetchProducts'
 import queryString from 'query-string'
 import apiWrapper from '../utils/apiWrapper'
-import { AuthenticationContext } from '../contexts/authenticationContext'
+// import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const ImgContainer = styled.div`
 	margin-bottom: 7.2rem;
@@ -80,7 +80,7 @@ function Products({ products }) {
 export default function MyWork({ location, history }) {
 	// Actual products
 	const [products, setProducts] = useState(null)
-	const { dispatch: authDispatch } = useContext(AuthenticationContext)
+	// const { dispatch: authDispatch } = useContext(AuthenticationContext)
 
 	// Reloads if error
 	const [reload, setReload] = useState(false)
@@ -101,7 +101,7 @@ export default function MyWork({ location, history }) {
 
 			const data = await apiWrapper(
 				() => fetchProducts(page),
-				authDispatch,
+				// authDispatch,
 				() => setReload(!reload)
 			)
 
@@ -113,7 +113,7 @@ export default function MyWork({ location, history }) {
 				window.scrollTo(0, 0)
 			}
 		})()
-	}, [page, reload, authDispatch])
+	}, [page, reload /*authDispatch*/])
 
 	function updatePage(page) {
 		history.push({

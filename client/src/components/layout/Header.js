@@ -6,13 +6,13 @@ import hamburger from '../../assets/images/svg/hamburger.svg'
 import x from '../../assets/images/svg/x.svg'
 import { device } from '../../styles/breakPoints'
 import colors from '../../styles/colors'
-import { MessagesContext } from '../../contexts/messagesContext'
+// import { MessagesContext } from '../../contexts/messagesContext'
 
-import Message from '../Message'
+// import Message from '../Message'
 import NavLinksComp from './Header/NavLinksComp'
 import SocialIcons from './Header/SocialIcons'
-import { AuthenticationContext } from '../../contexts/authenticationContext'
-import setAuthToken from '../../utils/setAuthToken'
+// import { AuthenticationContext } from '../../contexts/authenticationContext'
+// import setAuthToken from '../../utils/setAuthToken'
 
 const SocialIconsContainerDesktop = styled.div`
 	align-items: center;
@@ -185,16 +185,16 @@ const NavDesktop = styled.div`
 
 function HeaderComp({ location }) {
 	const [isOpen, setisOpen] = useState(false)
-	const { message } = useContext(MessagesContext)
-	const { authentication: auth } = useContext(AuthenticationContext)
+	// const { message } = useContext(MessagesContext)
+	// const { authentication: auth } = useContext(AuthenticationContext)
 
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : 'initial'
 	}, [isOpen])
 
-	useEffect(() => {
-		if (auth && auth.token) setAuthToken(auth.token)
-	})
+	// useEffect(() => {
+	// 	if (auth && auth.token) setAuthToken(auth.token)
+	// })
 
 	function handleClick() {
 		setisOpen(!isOpen)
@@ -238,7 +238,7 @@ function HeaderComp({ location }) {
 					</SocialIconContainerMobile>
 				</Nav>
 			</ContentContainer>
-			{message && message.text && <Message message={message} />}
+			{/*{message && message.text && <Message message={message} />}*/}
 		</Header>
 	)
 }
