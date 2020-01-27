@@ -7,7 +7,6 @@ import '../styles/App.css'
 import AuthenticationProvider from '../contexts/authenticationContext'
 import MessagesProvider from '../contexts/messagesContext'
 import setAuthToken from '../utils/setAuthToken'
-import PrivateRoute from './PrivateRoute'
 
 const Home = lazy(() => import('../pages/Home'))
 const AboutMe = lazy(() => import('../pages/AboutMe'))

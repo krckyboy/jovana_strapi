@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import styled from 'styled-components/macro'
 import PaginationControls from '../components/PaginationControls.js'
 import { device } from '../styles/breakPoints'
 import fetchProducts from '../api/fetchProducts'
 import queryString from 'query-string'
-import apiWrapper from '../utils/apiWrapper'
-// import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const ImgContainer = styled.div`
 	margin-bottom: 7.2rem;
@@ -80,7 +78,6 @@ function Products({ products }) {
 export default function MyWork({ location, history }) {
 	// Actual products
 	const [products, setProducts] = useState(null)
-	// const { dispatch: authDispatch } = useContext(AuthenticationContext)
 
 	// Reloads if error
 	const [reload, setReload] = useState(false)
@@ -99,21 +96,18 @@ export default function MyWork({ location, history }) {
 		;(async () => {
 			setLoading(true)
 
-			const data = await apiWrapper(
-				() => fetchProducts(page),
-				// authDispatch,
-				() => setReload(!reload)
-			)
-
-			if (!data.error) {
+			try {
+				const data = await fetchProducts(page)
 				const { products, pagesCount } = data
 				setProducts(products)
 				setFinalPage(pagesCount)
 				setLoading(false)
 				window.scrollTo(0, 0)
+			} catch (e) {
+				setReload(!reload)
 			}
 		})()
-	}, [page, reload /*authDispatch*/])
+	}, [page, reload])
 
 	function updatePage(page) {
 		history.push({

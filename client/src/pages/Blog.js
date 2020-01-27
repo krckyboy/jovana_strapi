@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/layout/Layout'
 import BlogPostCard from '../components/Blogs/BlogPostCard'
 import PaginationControls from '../components/PaginationControls'
@@ -6,8 +6,6 @@ import styled from 'styled-components/macro'
 import { device } from '../styles/breakPoints'
 import fetchBlogs from '../api/fetchBlogs'
 import queryString from 'query-string'
-import apiWrapper from '../utils/apiWrapper'
-// import { AuthenticationContext } from '../contexts/authenticationContext'
 
 const StyledBlogPostCard = styled(BlogPostCard)`
 	@media only screen and ${device.laptopL} {
@@ -78,20 +76,15 @@ export default function Blog({ location, history }) {
 		;(async () => {
 			setLoading(true)
 
-			// Checking if the API returns an error
-			const data = await apiWrapper(
-				() => fetchBlogs(page),
-				// authDispatch,
-				() => setReload(!reload)
-			)
-
-			// If there isn't an error, update data
-			if (!data.error) {
+			try {
+				const data = await fetchBlogs(page)
 				const { blogs, pagesCount } = data
 				setBlogs(blogs)
 				setFinalPage(pagesCount)
 				setLoading(false)
 				window.scrollTo(0, 0)
+			} catch (e) {
+				setReload(!reload)
 			}
 		})()
 	}, [page, reload /*authDispatch*/])
