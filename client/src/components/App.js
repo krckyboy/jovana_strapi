@@ -27,6 +27,8 @@ if (localStorage.authentication) {
 
 // # Add content loader for nice feel.
 // # Add 404 page
+// # Refactor API calls not to use API wrapper but regular try catch block
+// # See what to do with "radovi" - maybe when clicked to expand image or show description?
 function App() {
 	return (
 		<AuthenticationProvider>
