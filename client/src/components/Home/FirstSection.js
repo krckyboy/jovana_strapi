@@ -98,8 +98,8 @@ export default function FirstSectionComp() {
 			<TextContainer>
 				<MainHeadingContainer>
 					<MainHeadingTop>
-						Zdravo! Ja sam Jovana i {<br />}želim da Vas{' '}
-						<SpecialWord>motivišem!</SpecialWord>
+						Zdravo! Ja sam Jovana i {<br />}ja sam{' '}
+						<SpecialWord>slikar!</SpecialWord>
 					</MainHeadingTop>
 					<MainHeadingBottom>
 						Dobrodošli u moj virtuelni dom!
