@@ -7,12 +7,12 @@ import styled from 'styled-components/macro'
 import { device } from '../../styles/breakPoints'
 
 const images = [
-	{ src: '/images/ravna_gora_grp.jpg', alt: 'Ravna Gora' },
-	{ src: '/images/jovana.jpg', alt: 'Jovana' },
-	{ src: '/images/ravna_gora_grp.jpg', alt: 'Ravna Gora' },
-	{ src: '/images/ravna_gora_grp.jpg', alt: 'Ravna Gora' },
-	{ src: '/images/jovana.jpg', alt: 'Jovana' },
-	{ src: '/images/ravna_gora_grp.jpg', alt: 'Ravna Gora' },
+	{ src: '/images/dummy/work/1.jpg', alt: '1' },
+	{ src: '/images/dummy/work/2.jpg', alt: '2' },
+	{ src: '/images/dummy/work/3.jpg', alt: '3' },
+	{ src: '/images/dummy/work/4.jpg', alt: '4' },
+	{ src: '/images/dummy/work/5.jpg', alt: '5' },
+	{ src: '/images/dummy/work/6.jpg', alt: '6' },
 ]
 
 const imagesMappedCarousel = images.map((i, index) => (

@@ -9,6 +9,7 @@ const Img = styled.img`
 	max-height: 25rem;
 	width: 100%;
 	object-fit: cover;
+	object-position: top;
 `
 
 // Mini section typography margins need refactoring through CSS because of dynamic content.
@@ -19,7 +20,7 @@ export default function AboutMe() {
 				<div className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop containerCommon">
 					<h1 className="h1">O meni</h1>
 					<SubHeading>Kreator</SubHeading>
-					<Img src="/images/jovana.jpg" alt="" />
+					<Img src="/images/dummy/jovana3.jpg" alt="" />
 					<P>
 						Chocolate cake tiramisu dessert powder fruitcake.
 						Chocolate chocolate cake gummies. Sweet icing danish
@@ -38,7 +39,7 @@ export default function AboutMe() {
 					</P>
 
 					<SubHeading>Umetnik</SubHeading>
-					<Img src="/images/jovana.jpg" alt="" />
+					<Img src="/images/dummy/jovana2.jpg" alt="" />
 					<P>
 						Chocolate cake tiramisu dessert powder fruitcake.
 						Chocolate chocolate cake gummies. Sweet icing danish
@@ -57,6 +58,7 @@ export default function AboutMe() {
 					</P>
 
 					<SubHeading>Asistent režije</SubHeading>
+					<Img src="/images/dummy/jovana3.jpg" alt="" />
 					<P>
 						Chupa chups jelly-o tootsie roll gingerbread macaroon
 						wafer macaroon. Jelly tootsie roll halvah sweet danish

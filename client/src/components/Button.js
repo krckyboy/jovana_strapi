@@ -42,6 +42,10 @@ const Button = styled.button`
 	@media only screen and ${device.mobileL} {
 		min-width: 16rem;
 	}
+
+	&:focus {
+		outline: none;
+	}
 `
 
 export default function ButtonComp({ children, style, type }) {

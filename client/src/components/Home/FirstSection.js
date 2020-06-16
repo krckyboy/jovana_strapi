@@ -3,7 +3,6 @@ import Button from '../Button'
 import { Link } from 'react-router-dom'
 import colors from '../../styles/colors'
 import styled from 'styled-components/macro'
-import mainImg from '../../assets/images/jovana.jpg'
 import { device } from '../../styles/breakPoints'
 
 const MainImg = styled.img`
@@ -75,6 +74,7 @@ const Section = styled.section`
 	max-width: 42.4rem;
 	margin-left: auto;
 	margin-right: auto;
+	width: 100%;
 
 	@media only screen and ${device.tablet} {
 		flex-direction: row;
@@ -94,7 +94,7 @@ const TextContainer = styled.div`
 export default function FirstSectionComp() {
 	return (
 		<Section className="horizontalPadding sectionSpacingFullBottom sectionSpacingFullTop">
-			<MainImg src={mainImg} alt="" />
+			<MainImg src={'/images/dummy/jovana.jpg'} alt="" />
 			<TextContainer>
 				<MainHeadingContainer>
 					<MainHeadingTop>

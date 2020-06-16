@@ -9,7 +9,6 @@ const Footer = styled.footer`
 	letter-spacing: 1px;
 	font-size: 1.3rem;
 	background-color: #fff;
-
 	flex-shrink: 0;
 `
 
@@ -17,7 +16,7 @@ const TopText = styled.p`
 	margin-bottom: 1.2rem;
 `
 
-const TopTextEmphasized = styled.span`
+const TopTextEmphasized = styled.a`
 	font-weight: 700;
 	color: ${colors.primary};
 `
@@ -27,7 +26,13 @@ export default function FooterComp() {
 		<Footer>
 			<TopText>
 				Made by{' '}
-				<TopTextEmphasized>Dušan Todorović Krcky</TopTextEmphasized>
+				<TopTextEmphasized
+					href="https://krcky.dev/"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Dušan Todorović Krcky
+				</TopTextEmphasized>
 			</TopText>
 			<p>Sva prava zadržana</p>
 		</Footer>

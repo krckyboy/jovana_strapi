@@ -79,6 +79,7 @@ const BlogReadMoreContainer = styled.div`
 `
 
 export default function BlogPostComp({ src, alt, id, description, title }) {
+	// Function for truncating / limiting the text and adding '...' if needed.
 	function truncateText(text, limit) {
 		if (text && text.length > limit) {
 			for (let i = limit; i > 0; i--) {
